@@ -6,6 +6,7 @@ import CartItem from './CartItem/CartItem';
 import styles from './Cart.module.scss';
 import { Link, useLocation } from 'react-router-dom';
 import { API_BASE_URL, PAYMENT_ENDPOINT } from '../../constants/apiConstants';
+import { v4 as uuidv4 } from 'uuid';
 
 const Cart = () => {
   const [cart, setCart] = useRecoilState(cartState);
