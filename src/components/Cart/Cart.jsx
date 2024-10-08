@@ -132,7 +132,8 @@ const sendOrderConfirmation = async (email, cartItems) => {
 
     try {
         // Генерируем UUID для платежа
-        const orderUuid = crypto.randomUUID();
+        let orderUuid = uuidv4();
+
 
         // Сохраняем UUID в локальное хранилище для дальнейшей проверки статуса
         localStorage.setItem('orderUuid', orderUuid);
