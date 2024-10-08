@@ -1,0 +1,16 @@
+.mapContainer {
+    max-width: 1200px;
+    margin: 1.5rem auto 1rem;
+    height: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+
+@media screen and (max-width:480px) {
+  .mapContainer{
+    margin: 1.2rem 0.5rem 0.7rem;
+  }
+  
+}

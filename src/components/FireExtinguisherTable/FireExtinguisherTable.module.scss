@@ -1,0 +1,61 @@
+.tableContainer {
+    margin-top: 2rem;
+    width: 100%;
+  }
+  
+  .scrollIndicator {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    margin-bottom: 1rem;
+    display: none;
+  }
+  
+  .tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  
+  .tableHeader {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+  }
+  
+  .rowName {
+    font-weight: bold;
+    text-align: left;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    white-space: nowrap;
+  }
+  
+  .tableCell {
+    text-align: center;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+  }
+  
+  @media (max-width: 768px) {
+    .scrollIndicator {
+      display: block;
+    }
+  
+    .table {
+      font-size: 0.8rem;
+    }
+  
+    .tableHeader,
+    .rowName,
+    .tableCell {
+      padding: 0.5rem;
+    }
+  }

@@ -1,0 +1,99 @@
+.card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  background: #fff;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 250px;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  h4 {
+    margin: 10px 0;
+    color: #333;
+  }
+
+  p {
+    margin: 5px 0;
+    color: #666;
+  }
+
+  .availability {
+    margin: 10px 0;
+    font-size: 0.9em;
+  }
+
+  .inStock {
+    color: #28a745;
+  }
+
+  .price {
+    font-weight: bold;
+    font-size: 1.2em;
+
+    .retailPrice {
+      display: block;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .wholesalePrice {
+      display: block;
+      color: #666;
+      font-size: 0.9em;
+    }
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  
+  & button{
+    width: 45%;
+  }
+
+  @media (max-width: 768px) {
+    align-items: stretch;
+  }
+
+  .orderButton, .detailsButton {
+    padding: 10px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #FE8B1E;
+    color: white;
+    transition: background-color 0.3s;
+    font-weight: 700;
+
+    &:hover {
+      background-color: transparent;
+      border: 2px solid #FE8B1E;
+      color: #333;
+    }
+  }
+  .detailsButton{
+    color: #333;
+    background-color: transparent;
+    border: 2px solid #FE8B1E;
+    transition: all .3s ease;
+    &:hover{
+      color: #FFF;
+      background-color: #FE8B1E;
+    }
+  }
+}

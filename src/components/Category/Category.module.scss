@@ -1,0 +1,21 @@
+.homePage {
+  padding: 20px;
+  & h1{
+    color: #333;
+    margin-bottom: 0.8rem;
+  }
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sidebar {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.main {
+  flex: 3;
+}

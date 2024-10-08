@@ -1,0 +1,233 @@
+.orderForm {
+  max-width: 100%;
+  padding: 10px;
+  max-height: calc(100vh - 90px);
+  position: relative;
+  
+  @media (max-width: 600px) {
+    padding: 15px;
+  }
+}
+:global(.react-select__menu) {
+  position: absolute !important;
+  z-index: 1000;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.field {
+  margin-bottom: 15px;
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    color: #333;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: #FE8B1E;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+  }
+
+  textarea {
+    height: 100px;
+    resize: none;
+  }
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.fileUpload {
+  margin-bottom: 15px;
+}
+
+.fileLabel {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #e3e3e3;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.fileIcon {
+  margin-right: 5px;
+}
+
+.fileInput {
+  display: none;
+}
+.selectedFiles {
+  margin-top: 10px;
+  
+  p {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+      margin-bottom: 3px;
+      font-size: 14px;
+      color: #333;
+    }
+  }
+}
+.checkbox {
+  display: flex;
+  align-items: start;
+  margin-bottom: 20px;
+  flex-direction: column;
+  input {
+    display: none;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+
+.checkboxControl {
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  border-radius: 12px;
+  background-color: #ccc;
+  margin-right: 10px;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.checkboxToggle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+  transition: transform 0.3s;
+}
+
+input:checked + label .checkboxControl {
+  background-color: #FE8B1E;
+}
+
+input:checked + label .checkboxToggle {
+  transform: translateX(26px);
+}
+
+.checkboxLabel {
+  font-size: 14px;
+  color: #333;
+}
+
+.submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+
+  &:hover:not(:disabled) {
+    background-color: #cc0000;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.successMessage,
+.errorMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & p{
+    text-align: center;
+  }
+}
+
+.successIcon {
+  font-size: 45px;
+  color: #28a745;
+  margin-bottom: 20px;
+}
+
+.successMessage h2 {
+  color: #28a745;
+}
+
+.errorMessage h2 {
+  color: #e74c3c;
+}
+
+.errorMessage p {
+  color: #333;
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .field {
+    input,
+    textarea {
+      font-size: 14px;
+    }
+  }
+  .checkboxControl{
+    width: 50px;
+    height: 19px;
+  }
+  .checkboxToggle {
+    width: 15px;
+    height: 15px;
+  }
+  input:checked + label .checkboxToggle {
+    transform: translateX(15px);
+  }
+
+  .submit {
+    font-size: 14px;
+  }
+}

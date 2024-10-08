@@ -1,0 +1,114 @@
+.cart {
+  padding: 20px;
+  background: #fff;
+  //border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #333;
+  max-width: 800px;
+  margin: 1rem auto;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .cartActions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+
+    .clearCartButton {
+      padding: 10px 15px;
+      background: #e53935;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+
+      &:hover {
+        background: #d32f2f;
+      }
+    }
+  }
+
+  .emptyCart {
+    text-align: center;
+    color: #777;
+
+    .emptyCartIcon {
+      margin-bottom: 20px;
+
+      svg {
+        fill: #ccc;
+      }
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .continueShopping {
+      color: #e53935;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .cartItems {
+    margin-bottom: 20px;
+  }
+
+  .cartSummary {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .emailInput {
+    margin-bottom: 20px;
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+
+      &.invalidEmail {
+        border-color: #e53935;
+      }
+    }
+  }
+
+  .errorMessage {
+    color: #e53935;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  .checkoutButton {
+    width: 100%;
+    padding: 10px;
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+
+    &:hover {
+      background: #45a049;
+    }
+
+    &:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+    }
+  }
+}

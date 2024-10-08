@@ -1,0 +1,134 @@
+.filterContainer {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.filterHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFF;
+  color: #333;  
+  padding: 20px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clicked {
+  background-color: #f0f0f0;
+}
+
+.filterContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+  padding: 0 5px 5px 5px;
+}
+
+.filterSection {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFF;
+  color: #333;
+  padding: 15px 10px;
+  cursor: pointer;
+}
+
+.sectionContent {
+  padding: 4px 15px 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+  
+  & label {
+    display: flex;
+    align-items: center;
+    color: #666;
+  }
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 14px;
+}
+
+.open {
+  transform: rotate(180deg);
+}
+
+.priceInputs {
+  display: flex;
+  justify-content: space-between;
+}
+.priceInputs_from{
+  border-radius: 5px 0 0 5px;
+}
+.priceInputs_to{
+  border-radius: 0 5px 5px 0;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  margin-top: 5px;
+  color: #333;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 2px solid #FE8B1E;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  position: relative;
+  cursor: pointer;
+
+  &:checked {
+    background-color: #FE8B1E;
+
+    &::before {
+      content: '✔';
+      display: block;
+      color: #fff;
+      font-weight: bold;
+      position: absolute;
+      top: -3px;
+      left: 2px;
+      font-size: 16px;
+    }
+  }
+}
+
+:global {
+  .rc-slider-handle {
+    background: #FE8B1E;
+    border: 2px solid #FE8B1E;
+    width: 20px;
+    height: 20px;
+    margin-top: -9px;
+  }
+
+  .rc-slider-track {
+    background: #FE8B1E;
+  }
+
+  .rc-slider-rail {
+    background: #ddd;
+  }
+}

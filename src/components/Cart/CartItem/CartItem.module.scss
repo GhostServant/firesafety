@@ -1,0 +1,95 @@
+.cartItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    border-radius: 5px;
+  }
+
+  .itemDetails {
+    flex-grow: 1;
+
+    h3 {
+      font-size: 18px;
+      margin: 0 0 10px;
+    }
+
+    p {
+      font-size: 16px;
+      margin: 0 0 10px;
+    }
+
+    .quantityControl {
+      display: flex;
+      align-items: center;
+
+      button {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #ddd;
+        background: #f0f0f0;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 18px;
+        line-height: 28px;
+      }
+
+      input {
+        width: 50px;
+        padding: 5px;
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin: 0 10px;
+        appearance: none; /* Убираем стрелки */
+      }
+    }
+
+    .removeItemButton {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: #ff4d4d;
+      cursor: pointer;
+    }
+  }
+
+  .itemTotal {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 20px;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(254, 139, 30, 0.3);
+  }
+}

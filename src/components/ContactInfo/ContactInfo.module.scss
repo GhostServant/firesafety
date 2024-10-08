@@ -1,0 +1,12 @@
+.contactInfoContainer {
+    flex: 1;
+    & h3{
+      color: #333;
+    }
+  }
+  
+  .infoItem {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #555;
+  }

@@ -1,0 +1,38 @@
+.breadcrumbs {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 16px;
+  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+
+  a {
+    color: #6c757d;
+    text-decoration: none;
+
+    &:hover {
+      color: #343a40;
+    }
+  }
+
+  span {
+    color: #343a40;
+  }
+
+  & > *:not(:last-child)::after {
+    content: '>';
+    margin: 0 8px;
+    color: #e0e0e0;
+  }
+}
+
+@media (max-width: 480px) {
+  .breadcrumbs span{
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

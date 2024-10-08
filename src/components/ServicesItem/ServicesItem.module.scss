@@ -1,0 +1,130 @@
+.servicePage {
+  padding: 20px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.content {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 40px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.276);
+  overflow: hidden;
+}
+
+.imageContainer {
+  flex: 1;
+  max-width: 50%;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.descriptionContainer {
+  flex: 1;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.orderButton {
+  align-self: flex-start;
+  background-color: #FE8B1E;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  outline: none;
+
+  &:hover {
+    background-color:#e7770d;
+  }
+}
+
+.calculator {
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calculatorTitle {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.calculatorContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calculatorInput {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: box-shadow 0.3s ease;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(254, 139, 30, 0.3);
+  }
+}
+
+.calculatorResult {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #FE8B1E;
+}
+
+.notFound {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #666;
+  margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .imageContainer {
+    max-width: 100%;
+  }
+
+  .descriptionContainer {
+    padding: 10px 20px 20px 20px;
+  }
+}

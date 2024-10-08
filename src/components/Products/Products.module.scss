@@ -1,0 +1,82 @@
+.listingContainer {
+  padding: 20px;
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.listingTitle {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.productCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+  background-color: #fff;
+  text-decoration: none;
+  color: inherit;
+  box-sizing: border-box;
+
+  &:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.208);
+  }
+}
+
+.productImage {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.productName {
+  font-size: 16px;
+  text-align: center;
+  margin: 0 0 10px 0;
+  word-wrap: break-word;
+}
+
+.productCount {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .productGrid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  .productCard {
+    padding: 10px;
+  }
+
+  .productImage {
+    height: 120px;
+  }
+
+  .productName {
+    font-size: 14px;
+  }
+
+  .productCount {
+    font-size: 12px;
+  }
+}
