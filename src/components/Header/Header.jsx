@@ -5,6 +5,7 @@ import OrderForm from '../OrderForm/OrderForm';
 import './Header.scss';
 import { useRecoilValue } from 'recoil';
 import { cartState } from '../../recoil/atoms';
+import HeaderLogo from './../../images/bg/logo.png'
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -62,7 +63,7 @@ function Header() {
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
       <div className="header-top">
         <div className="logo">
-          <img src="/path-to-logo.png" alt="Магазин 01" />
+          <img src={HeaderLogo} alt="Магазин 01" />
         </div>
         <nav className="top-nav">
           <ul>

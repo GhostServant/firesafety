@@ -34,7 +34,7 @@ const ItemCard = ({ product }) => {
   
   return (
     <div className={styles.card}>
-      <img src='https://www.magazin01.ru/upload/iblock/f32/qbz4ezesr4dh1pumjaztiv2zq5zir94b/Bezimeni_7.png' alt={product.name} className={styles.image} />
+      <img src={product.productImage} alt={product.name} className={styles.image} />
       <h4>{product.name}</h4>
       <p>{product.description}</p>
       <p className={styles.availability}>

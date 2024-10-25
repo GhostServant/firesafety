@@ -21,8 +21,14 @@ const ProductCatalog = () => {
           {priceList.map((category) => (
             <li key={category.id} className={styles.categoryItem}>
               <Link to={category.linkTo} className={styles.categoryCard}>
-                <img src={category.imageSrc} alt={category.category} />
-                <span>{category.category}</span>
+                <div className={styles.imageWrapper}>
+                  <img 
+                    src={category.imageSrc} 
+                    alt={category.category}
+                    className={styles.categoryImage}
+                  />
+                </div>
+                <span className={styles.categoryTitle}>{category.category}</span>
               </Link>
             </li>
           ))}

@@ -38,7 +38,7 @@ const CartItem = ({ item }) => {
 
   return (
     <div className={styles.cartItem}>
-      <img src={item.image || 'https://www.magazin01.ru/upload/iblock/f32/qbz4ezesr4dh1pumjaztiv2zq5zir94b/Bezimeni_7.png'} alt={item.name} />
+      <img src={item.productImage || 'https://www.magazin01.ru/upload/iblock/f32/qbz4ezesr4dh1pumjaztiv2zq5zir94b/Bezimeni_7.png'} alt={item.name} />
       <div className={styles.itemDetails}>
         <h3>{item.name}</h3>
         <p>{applicablePrice.toFixed(2)} руб./шт</p>

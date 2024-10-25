@@ -22,11 +22,11 @@ const useEmailJs = () => {
     setIsSending(true);
     setIsSent(false);
     setError(null);
-
+  
     try {
       const url = determineRoute(formData);
       if (!url) throw new Error('Неизвестный сценарий отправки');
-
+  
       const payload = {};
       if (formData.scene === 1) {
         payload.subject = formData.subject || '—';
@@ -34,7 +34,8 @@ const useEmailJs = () => {
         payload.service = formData.service || '—';
         payload.inn = formData.inn || '—';
         payload.add_data = formData.add_data || '—';
-        payload.file = formData.file || '—';
+        payload.file_data = formData.file_data || '—';
+        payload.file_name = formData.file_name || '—';  // добавляем file_name
       } else if (formData.scene === 2) {
         payload.subject = formData.subject || '—';
         payload.name = formData.name || '—';
@@ -46,10 +47,11 @@ const useEmailJs = () => {
         payload.inn = formData.inn || '—';
         payload.message = formData.message || '—';
         payload.add_data = formData.add_data || '—';
-        payload.file = formData.file || '—';
+        payload.file_data = formData.file_data || '—';
+        payload.file_name = formData.file_name || '—';  // добавляем file_name
       }
       console.log(payload);
-      
+  
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -58,7 +60,7 @@ const useEmailJs = () => {
         body: JSON.stringify(payload),
       });
       setIsSent(true);
-
+  
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.statusText}`);
       }
@@ -70,6 +72,7 @@ const useEmailJs = () => {
       setIsSending(false);
     }
   };
+  
 
   return { sendEmail, isSending, isSent, error };
 };

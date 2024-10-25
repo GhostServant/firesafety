@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Select from 'react-select';
 import styles from './OrderForm.module.scss';
 import Modal from './../Modal/Modal';
@@ -18,7 +18,7 @@ const OrderForm = ({
   showQuantity = true,
   showServiceSelect = false,
   showInn = false,
-  scenario // добавляем параметр сценария
+  scenario
 }) => {
   const [formData, setFormData] = useState({
     titleTemplate: title,
@@ -27,20 +27,20 @@ const OrderForm = ({
     email: '',
     serviceName: serviceName || '',
     message: '',
-    files: [],
+    file_data: [],
+    file_name: '',
     agreed: false,
     quantity: 1,
     inn: '',
-    add_data: '', // Добавлено поле для дополнительных данных
+    add_data: '',
     companyName: ''
   });
-
+  
   const [errors, setErrors] = useState({});
-  const [isSuccessModal, setIsSuccessModal] = useState(false);
-  const [selectedFileNames, setSelectedFileNames] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
 
-  // Используем хук для отправки email
-  const { sendEmail, isSending, isSent, error } = useEmailJs();
+  const { sendEmail, isSending } = useEmailJs();
 
   const validate = () => {
     const newErrors = {};
@@ -49,7 +49,7 @@ const OrderForm = ({
       newErrors.name = 'Имя обязательно для заполнения';
     }
 
-    if (showPhone && !formData.phone) { // Валидация для телефона
+    if (showPhone && !formData.phone) {
       newErrors.phone = 'Телефон обязателен для заполнения';
     }
 
@@ -79,7 +79,6 @@ const OrderForm = ({
       [name]: type === 'checkbox' ? checked : value
     }));
 
-    // Проверка ИНН и получение информации о компании
     if (name === 'inn' && value) {
       fetchCompanyInfo(value);
     }
@@ -93,22 +92,28 @@ const OrderForm = ({
   };
 
   const handleFileChange = (e) => {
-  const filesArray = Array.from(e.target.files);
-  const filePromises = filesArray.map(file => convertFileToBase64(file));
-
-  Promise.all(filePromises).then(base64Files => {
-    setFormData(prevData => ({
-      ...prevData,
-      files: base64Files
-    }));
-    setSelectedFileNames(filesArray.map(file => file.name));
-  });
-};
+    const file = e.target.files[0];
+    if (file) {
+      convertFileToBase64(file).then(base64File => {
+        console.log('Base64 file:', base64File);
+        setFormData(prevData => ({
+          ...prevData,
+          file_data: [base64File], // Теперь это массив с одним элементом
+          file_name: file.name
+        }));
+      });
+    }
+  };
 
   const convertFileToBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
+      reader.onload = () => {
+        const base64String = reader.result
+          .replace('data:', '')
+          .replace(/^.+,/, '');
+        resolve(base64String);
+      };
       reader.onerror = error => reject(error);
       reader.readAsDataURL(file);
     });
@@ -121,8 +126,6 @@ const OrderForm = ({
       setErrors(validationErrors);
     } else {
       setErrors({});
-
-      // Формируем данные для отправки в зависимости от сценария
       const payload = {
         subject: formData.titleTemplate,
         name: formData.name,
@@ -130,34 +133,41 @@ const OrderForm = ({
         message: formData.message,
         recipient_email: formData.email,
         inn: formData.inn,
-        add_data: formData.add_data || formData.companyName || '—', // Добавлено условие для add_data
-        file: formData.files.length > 0 ? formData.files[0] : '',
+        add_data: formData.add_data || formData.companyName || '—',
+        file_data: formData.file_data.length > 0 ? formData.file_data[0] : '',
+        file_name: formData.file_name,
         service: formData.serviceName,
-        scene: scenario // добавляем сцену
+        scene: scenario
       };
 
-      await sendEmail(payload); // Отправляем данные на бэкенд
+      try {
+        await sendEmail(payload);
+        setModalMessage('Форма успешно отправлена!');
+        setIsModalOpen(true);
+        setFormData({
+          titleTemplate: title,
+          name: '',
+          phone: '',
+          email: '',
+          serviceName: '',
+          message: '',
+          file_data: [],
+          file_name: '',
+          agreed: false,
+          quantity: 1,
+          inn: '',
+          add_data: '',
+          companyName: ''
+        });
+      } catch (error) {
+        setModalMessage('Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.');
+        setIsModalOpen(true);
+      }
     }
   };
 
   const closeModal = () => {
-    setIsSuccessModal(false);
-    if (isSent) {
-      setFormData({
-        titleTemplate: title,
-        name: '',
-        phone: '',
-        email: '',
-        serviceName: '',
-        message: '',
-        files: [],
-        agreed: false,
-        quantity: 1,
-        inn: '',
-        add_data: '', // Сбрасываем поле add_data
-        companyName: ''
-      });
-    }
+    setIsModalOpen(false);
   };
 
   const fetchCompanyInfo = async (inn) => {
@@ -174,17 +184,16 @@ const OrderForm = ({
       const data = await response.json();
       if (data.suggestions && data.suggestions.length > 0) {
         const companyData = data.suggestions[0];
-
         setFormData(prevData => ({
           ...prevData,
           companyName: companyData.value,
-          add_data: `${companyData.unrestricted_value ?? companyData.value}, ${`КПП - ${companyData.data.kpp || '—'}`}, ${companyData.data.address.value || '—'}` // Формируем строку для add_data
+          add_data: `${companyData.unrestricted_value ?? companyData.value}, ${`КПП - ${companyData.data.kpp || '—'}`}, ${companyData.data.address.value || '—'}`
         }));
       } else {
         setFormData(prevData => ({
           ...prevData,
           companyName: 'Компания не найдена',
-          add_data: '—' // Если компания не найдена, ставим прочерк
+          add_data: '—'
         }));
       }
     } catch (error) {
@@ -192,7 +201,7 @@ const OrderForm = ({
       setFormData(prevData => ({
         ...prevData,
         companyName: 'Ошибка при получении данных',
-        add_data: '—' // Если произошла ошибка, ставим прочерк
+        add_data: '—'
       }));
     }
   };
@@ -299,33 +308,27 @@ const OrderForm = ({
           </div>
         )}
 
-{showFileUpload && (
-  <div className={styles.fileUpload}>
-    <label htmlFor="file" className={styles.fileLabel}>
-      <span className={styles.fileIcon}>📎</span>
-      Прикрепить файл
-    </label>
-    <input
-      type="file"
-      id="file"
-      name="file"
-      onChange={handleFileChange}
-      multiple
-      accept=".docx,.txt"
-      className={styles.fileInput}
-    />
-    {selectedFileNames.length > 0 && (
-      <div className={styles.selectedFiles}>
-        <p>Выбранные файлы:</p>
-        <ul>
-          {selectedFileNames.map((fileName, index) => (
-            <li key={index}>{fileName}</li>
-          ))}
-        </ul>
-      </div>
-    )}
-  </div>
-)}
+        {showFileUpload && (
+          <div className={styles.fileUpload}>
+            <label htmlFor="file" className={styles.fileLabel}>
+              <span className={styles.fileIcon}>📎</span>
+              Прикрепить файл
+            </label>
+            <input
+              type="file"
+              id="file"
+              name="file"
+              onChange={handleFileChange}
+              accept=".docx,.txt"
+              className={styles.fileInput}
+            />
+            {formData.file_name && (
+              <div className={styles.selectedFiles}>
+                <p>Выбранный файл: {formData.file_name}</p>
+              </div>
+            )}
+          </div>
+        )}
 
         <div className={styles.checkbox}>
           <input
@@ -349,8 +352,10 @@ const OrderForm = ({
         </button>
       </form>
 
-      {isSuccessModal && (
-        <Modal onClose={closeModal} isSent={isSent} />
+      {isModalOpen && (
+        <Modal onClose={closeModal}>
+          <p>{modalMessage}</p>
+        </Modal>
       )}
     </>
   );
