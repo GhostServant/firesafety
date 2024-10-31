@@ -20,6 +20,13 @@ import Cabinet103Image from './../images/bg/fireCabinet/103.png';
 import Cabinet310Image from './../images/bg/fireCabinet/310.png';
 import Cabinet315Image from './../images/bg/fireCabinet/315.png';
 
+import Sleeves1 from './../images/bg/sleeves/1.png';
+import Sleeves2 from './../images/bg/sleeves/2.png';
+import Sleeves3 from './../images/bg/sleeves/3.png';
+import Sleeves4 from './../images/bg/sleeves/4.png';
+
+import inventoryImage from './inventoryImages';
+
 const DEFAULT_IMAGE = 'https://www.magazin01.ru/upload/iblock/f32/qbz4ezesr4dh1pumjaztiv2zq5zir94b/Bezimeni_7.png';
 
 
@@ -36,11 +43,11 @@ const priceList = [
       { id: 4, category: "Огнетушители", name: "Огнетушитель ОП-5", retailPrice: 950.00, wholesalePrice: 900.00, availability: "В наличии", productImage: Op5Image },
       { id: 5, category: "Огнетушители", name: "Огнетушитель ОП-8", retailPrice: 1100.00, wholesalePrice: 1045.00, availability: "В наличии", productImage: Op8Image },
       { id: 6, category: "Огнетушители", name: "Огнетушитель ОП-35", retailPrice: null, wholesalePrice: null, availability: "Под заказ", productImage: Op35Image },
-      { id: 7, category: "Огнетушители", name: "Огнетушитель ОУ-1", retailPrice: 1550.00, wholesalePrice: 1450.00, availability: "В наличии", productImage: Oy1Image },
+      { id: 7, category: "Огнетушители", name: "Огнетушитель ОУ-1", retailPrice: 1520.00, wholesalePrice: null, availability: "В наличии", productImage: Oy1Image },
       { id: 8, category: "Огнетушители", name: "Огнетушитель ОУ-2", retailPrice: 1850.00, wholesalePrice: 1760.00, availability: "В наличии", productImage: Oy2Image },
       { id: 9, category: "Огнетушители", name: "Огнетушитель ОУ-3", retailPrice: null, wholesalePrice: null, availability: "Под заказ", productImage: Oy3Image },
-      { id: 10, category: "Огнетушители", name: "Огнетушитель ОУ-5", retailPrice: null, wholesalePrice: null, availability: "Под заказ", productImage: Oy5Image },
-      { id: 11, category: "Огнетушители", name: "Огнетушитель ОУ-7", retailPrice: null, wholesalePrice: null, availability: "Под заказ", productImage: Oy7Image }
+      { id: 10, category: "Огнетушители", name: "Огнетушитель ОУ-5", retailPrice: 3100.00, wholesalePrice: null, availability: "В наличии", productImage: Oy5Image },
+      { id: 11, category: "Огнетушители", name: "Огнетушитель ОУ-7", retailPrice: 3850.00, wholesalePrice: null, availability: "В наличии", productImage: Oy7Image }
     ]
   },
   {
@@ -65,10 +72,10 @@ const priceList = [
     imageSrc: DEFAULT_IMAGE,
     linkTo: '/catalog/fire-hoses',
     items: [
-      { id: 1, category: "Рукава пожарные для ПК с рабочим давлением 1,0 МПа", name: "Рукав для ПК Ф51мм с ГР-50,раб. давл. 1,0 МПА (Китай)", retailPrice: 2450.00, wholesalePrice: 2350.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 2, category: "Рукава пожарные для ПК с рабочим давлением 1,0 МПа", name: "Рукав для ПК Универсал д.51мм в комплекте с ГР-50 Русарсенал", retailPrice: 2700.00, wholesalePrice: 2570.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 3, category: "Рукава пожарные для ПК с рабочим давлением 1,0 МПа", name: "Рукав для ПК Ф65мм с ГР-70, раб. давл. 1,0 МПА", retailPrice: null, wholesalePrice: null, availability: "Под заказ", productImage: DEFAULT_IMAGE },
-      { id: 4, category: "Рукава пожарные для ПК с рабочим давлением 1,0 МПа", name: "УВКП (Рукав Ф19мм в сумке, для квартир)", retailPrice: null, wholesalePrice: null, availability: "Под заказ", productImage: DEFAULT_IMAGE }
+      { id: 1, category: "Рукава пожарные для ПК с рабочим давлением 1,0 МПа", name: "Рукав для ПК Ф51мм с ГР-50,раб. давл. 1,0 МПА (Китай)", retailPrice: 2450.00, wholesalePrice: 2350.00, availability: "В наличии", productImage: Sleeves1 },
+      { id: 2, category: "Рукава пожарные для ПК с рабочим давлением 1,0 МПа", name: "Рукав для ПК Универсал д.51мм в комплекте с ГР-50 Русарсенал", retailPrice: 2700.00, wholesalePrice: 2570.00, availability: "В наличии", productImage: Sleeves2 },
+      { id: 3, category: "Рукава пожарные для ПК с рабочим давлением 1,0 МПа", name: "Рукав для ПК Ф65мм с ГР-70, раб. давл. 1,0 МПА", retailPrice: null, wholesalePrice: null, availability: "Под заказ", productImage: Sleeves3 },
+      { id: 4, category: "Рукава пожарные для ПК с рабочим давлением 1,0 МПа", name: "УВКП (Рукав Ф19мм в сумке, для квартир)", retailPrice: null, wholesalePrice: null, availability: "Под заказ", productImage: Sleeves4 }
     ]
   },
   {
@@ -77,23 +84,150 @@ const priceList = [
     imageSrc: DEFAULT_IMAGE,
     linkTo: '/catalog/fire-fighting-equipment',
     items: [
-      { id: 1, category: "Противопожарный инвентарь", name: "Лом пожарный", retailPrice: 250.00, wholesalePrice: 238.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 2, category: "Противопожарный инвентарь", name: "Багор пожарный", retailPrice: 340.00, wholesalePrice: 325.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 3, category: "Противопожарный инвентарь", name: "Лопата пожарная", retailPrice: 360.00, wholesalePrice: 342.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 4, category: "Противопожарный инвентарь", name: "Топор", retailPrice: 620.00, wholesalePrice: 590.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 5, category: "Противопожарный инвентарь", name: "Ведро конусное", retailPrice: 280.00, wholesalePrice: 257.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 6, category: "Противопожарный инвентарь", name: "Противопожарное полотно 1,5*2м (ПП-600)", retailPrice: 520.00, wholesalePrice: 495.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 7, category: "Противопожарный инвентарь", name: "Вентиль (для пожарного крана) Ф51мм. Латунь (муфта/цапка) 15 БЗР, 1,6 МПА", retailPrice: null, wholesalePrice: null, availability: "Под заказ", productImage: DEFAULT_IMAGE },
-      { id: 8, category: "Противопожарный инвентарь", name: "Головка муфтовая/цапковая, Ф70", retailPrice: 200.00, wholesalePrice: 190.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 9, category: "Противопожарный инвентарь", name: "Головка муфтовая/цапковая, Ф50", retailPrice: 160.00, wholesalePrice: 152.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 10, category: "Противопожарный инвентарь", name: "Головка ГР-50", retailPrice: 170.00, wholesalePrice: 162.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 11, category: "Противопожарный инвентарь", name: "Ствол к пож.рукаву РС-50 пласт.", retailPrice: 120.00, wholesalePrice: 114.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 12, category: "Противопожарный инвентарь", name: "Ствол к пож.рукаву РС-50 алюм.", retailPrice: 340.00, wholesalePrice: 323.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 13, category: "Противопожарный инвентарь", name: "Подставка под огнетушитель П-10", retailPrice: 410.00, wholesalePrice: 390.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 14, category: "Противопожарный инвентарь", name: "Подставка под огнетушитель П-15", retailPrice: 450.00, wholesalePrice: 430.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 15, category: "Противопожарный инвентарь", name: "Шкаф-костюм к огнетушителю", retailPrice: 100.00, wholesalePrice: 95.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 16, category: "Противопожарный инвентарь", name: "Кронштейн с металлической защелкой", retailPrice: 220.00, wholesalePrice: 209.00, availability: "В наличии", productImage: DEFAULT_IMAGE },
-      { id: 17, category: "Противопожарный инвентарь", name: "Кронштейн Т-3 к ОП-4 с ремнем", retailPrice: 200.00, wholesalePrice: 190.00, availability: "В наличии", productImage: DEFAULT_IMAGE }
+     {
+    id: 1,
+    category: "Противопожарный инвентарь",
+    name: "Лом пожарный",
+    retailPrice: 250.00,
+    wholesalePrice: 238.00,
+    availability: "В наличии",
+    productImage: inventoryImage.crowbar, // Соответствующее изображение для лома пожарного
+  },
+  {
+    id: 2,
+    category: "Противопожарный инвентарь",
+    name: "Топор",
+    retailPrice: 300.00,
+    wholesalePrice: 285.00,
+    availability: "В наличии",
+    productImage: inventoryImage.axe, // Соответствующее изображение для топора
+  },
+  {
+    id: 3,
+    category: "Противопожарный инвентарь",
+    name: "Бочка для рукава RS-50 алюминиевая",
+    retailPrice: 500.00,
+    wholesalePrice: 475.00,
+    availability: "В наличии",
+    productImage: inventoryImage.barrelAluminum, // Соответствующее изображение для алюминиевой бочки
+  },
+  {
+    id: 4,
+    category: "Противопожарный инвентарь",
+    name: "Бочка для рукава RS-50 пластиковая",
+    retailPrice: 450.00,
+    wholesalePrice: 428.00,
+    availability: "В наличии",
+    productImage: inventoryImage.barrelPlastic, // Соответствующее изображение для пластиковой бочки
+  },
+  {
+    id: 5,
+    category: "Противопожарный инвентарь",
+    name: "Кронштейн T-3 к OP-4 с ремнем",
+    retailPrice: 150.00,
+    wholesalePrice: 140.00,
+    availability: "В наличии",
+    productImage: inventoryImage.bracketBelt, // Соответствующее изображение для кронштейна с ремнем
+  },
+  {
+    id: 6,
+    category: "Противопожарный инвентарь",
+    name: "Кронштейн с металлической защелкой",
+    retailPrice: 160.00,
+    wholesalePrice: 150.00,
+    availability: "В наличии",
+    productImage: inventoryImage.bracketLatch, // Соответствующее изображение для кронштейна с защелкой
+  },
+  {
+    id: 7,
+    category: "Противопожарный инвентарь",
+    name: "Конус-ведро",
+    retailPrice: 100.00,
+    wholesalePrice: 95.00,
+    availability: "В наличии",
+    productImage: inventoryImage.bucketCone, // Соответствующее изображение для конуса-ведра
+  },
+  {
+    id: 8,
+    category: "Противопожарный инвентарь",
+    name: "Соединительная головка 50",
+    retailPrice: 75.00,
+    wholesalePrice: 70.00,
+    availability: "В наличии",
+    productImage: inventoryImage.couplingHead50, // Соответствующее изображение для головки 50
+  },
+  {
+    id: 9,
+    category: "Противопожарный инвентарь",
+    name: "Соединительная головка 70",
+    retailPrice: 80.00,
+    wholesalePrice: 75.00,
+    availability: "В наличии",
+    productImage: inventoryImage.couplingHead70, // Соответствующее изображение для головки 70
+  },
+  {
+    id: 10,
+    category: "Противопожарный инвентарь",
+    name: "Подставка для огнетушителя P-10",
+    retailPrice: 200.00,
+    wholesalePrice: 190.00,
+    availability: "В наличии",
+    productImage: inventoryImage.extinguisherStandP10, // Соответствующее изображение для подставки P-10
+  },
+  {
+    id: 11,
+    category: "Противопожарный инвентарь",
+    name: "Подставка для огнетушителя P-15",
+    retailPrice: 220.00,
+    wholesalePrice: 210.00,
+    availability: "В наличии",
+    productImage: inventoryImage.extinguisherStandP15, // Соответствующее изображение для подставки P-15
+  },
+  {
+    id: 12,
+    category: "Противопожарный инвентарь",
+    name: "Лопата пожарная",
+    retailPrice: 120.00,
+    wholesalePrice: 115.00,
+    availability: "В наличии",
+    productImage: inventoryImage.shovel, // Соответствующее изображение для лопаты
+  },
+  {
+    id: 13,
+    category: "Противопожарный инвентарь",
+    name: "Гаф пожарный",
+    retailPrice: 130.00,
+    wholesalePrice: 125.00,
+    availability: "В наличии",
+    productImage: inventoryImage.gaff, // Соответствующее изображение для гафа
+  },
+  {
+    id: 14,
+    category: "Противопожарный инвентарь",
+    name: "Огнеупорная ткань 1.5x2м (PP-600)",
+    retailPrice: 350.00,
+    wholesalePrice: 330.00,
+    availability: "В наличии",
+    productImage: inventoryImage.fireproofFabric, // Соответствующее изображение для огнеупорной ткани
+  },
+  {
+    id: 15,
+    category: "Противопожарный инвентарь",
+    name: "Головка GR-50",
+    retailPrice: 90.00,
+    wholesalePrice: 85.00,
+    availability: "В наличии",
+    productImage: inventoryImage.headGR50, // Соответствующее изображение для головки GR-50
+  },
+  {
+    id: 16,
+    category: "Противопожарный инвентарь",
+    name: "Вентиль для пожарного гидранта 51мм",
+    retailPrice: 110.00,
+    wholesalePrice: 105.00,
+    availability: "В наличии",
+    productImage: inventoryImage.valve, // Соответствующее изображение для вентиля
+  }
     ]
   },
   {

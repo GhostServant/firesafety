@@ -11,7 +11,12 @@ const Contacts = () => {
     email: "vdpo.kmv@mail.ru"
   };
   const mapCenter = [44.044521, 42.858761];
-  const mapZoom = 16;
+  const mapZoom = 9;
+  const locations = [
+    { coordinates: [44.044521, 42.858761], type: "office", label: "Главный офис" },
+    { coordinates: [44.191784, 43.129368], type: "pickup", label: "Пункт выдачи Минеральные Воды, Новоселов 9А" },
+    { coordinates: [44.048087, 43.059196], type: "pickup", label: "Пункт выдачи Пятигорск, Украинская 34" },
+  ];
 
   return (
     <div className={styles.contactsContainer}>
@@ -20,7 +25,12 @@ const Contacts = () => {
         <CompanyInfo description={companyDescription} />
         <ContactInfo {...contactInfo} />
       </div>
-      <YandexMap center={mapCenter} zoom={mapZoom} />
+      <YandexMap center={mapCenter} zoom={mapZoom} locations={locations} />
+
+      <div className={styles.legend}>
+        <p><span className={styles.officeMarker}></span> — Главный офис</p>
+        <p><span className={styles.pickupMarker}></span> — Пункты выдачи</p>
+      </div>
     </div>
   );
 };
