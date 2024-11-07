@@ -62,15 +62,12 @@
   justify-content: space-between;
   margin-top: 15px;
   
-  & button{
-    width: 45%;
-  }
 
   @media (max-width: 768px) {
     align-items: stretch;
   }
 
-  .orderButton, .detailsButton {
+  .orderButton {
     padding: 10px;
     border: 2px solid transparent;
     border-radius: 5px;
@@ -79,21 +76,12 @@
     color: white;
     transition: background-color 0.3s;
     font-weight: 700;
-
+    width: 100%;
+    
     &:hover {
       background-color: transparent;
       border: 2px solid #FE8B1E;
       color: #333;
-    }
-  }
-  .detailsButton{
-    color: #333;
-    background-color: transparent;
-    border: 2px solid #FE8B1E;
-    transition: all .3s ease;
-    &:hover{
-      color: #FFF;
-      background-color: #FE8B1E;
     }
   }
 }

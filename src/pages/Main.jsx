@@ -5,13 +5,6 @@ import YandexMap from "../components/YandexMap/YandexMap";
 
 
 const Main = () => {
-    const companyDescription = "Мы - ведущая организация в сфере пожарной безопасности, предоставляющая широкий спектр услуг по защите жизни и имущества от огня.";
-  const contactInfo = {
-    address: "г. Ессентуки, ул. Советская, 67А",
-    phones: ["+7 (879) 343-67-34", "+7 (879) 343-67-35"],
-    email: "vdpo.kmv@mail.ru"
-  };
-
   const mapCenter = [44.044521, 42.858761];
   const mapZoom = 9;
 

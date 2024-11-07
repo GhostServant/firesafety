@@ -1,4 +1,3 @@
-import MainExtinguisherImage from '../images/bg/extinguisher/main.png';
 import Op2Image from './../images/bg/extinguisher/op-2.png';
 import Op3Image from './../images/bg/extinguisher/op-3.png';
 import Op4Image from './../images/bg/extinguisher/op-4.png';
@@ -25,16 +24,26 @@ import Sleeves2 from './../images/bg/sleeves/2.png';
 import Sleeves3 from './../images/bg/sleeves/3.png';
 import Sleeves4 from './../images/bg/sleeves/4.png';
 
+import PrintedProducts1 from './../images/bg/printedProducts/PB signs on adhesive backing.png';
+import PrintedProducts2 from './../images/bg/printedProducts/Safety signs _No smoking__.png';
+import PrintedProducts3 from './../images/bg/printedProducts/Fire safety signs - _Fire hydrant__.png';
+import PrintedProducts4 from './../images/bg/printedProducts/PB signs reflective.png';
+import PrintedProducts5 from './../images/bg/printedProducts/Poster _using a fire extinguisher_.png';
+
 import inventoryImage from './inventoryImages';
 
-const DEFAULT_IMAGE = 'https://www.magazin01.ru/upload/iblock/f32/qbz4ezesr4dh1pumjaztiv2zq5zir94b/Bezimeni_7.png';
+import DefaultMainImage1 from './../images/bg/mainBg/fire extinguisher.png'
+import DefaultMainImage2 from './../images/bg/mainBg/Fire shields, cabinets, drawers.png'
+import DefaultMainImage3 from './../images/bg/mainBg/Fire hoses for PC with working pressure 1.0 MPa.png'
+import DefaultMainImage4 from './../images/bg/mainBg/Printing products.png'
+import DefaultMainImage5 from './../images/bg/mainBg/Fire fighting equipment.png'
 
 
 const priceList = [
   {
     id: 1,
     category: "Огнетушители",
-    imageSrc: DEFAULT_IMAGE,
+    imageSrc: DefaultMainImage1,
     linkTo: '/catalog/fire-extinguishers',
     items: [
       { id: 1, category: "Огнетушители", name: "Огнетушитель ОП-2", retailPrice: 540.00, wholesalePrice: 513.00, availability: "В наличии", productImage: Op2Image },
@@ -53,7 +62,7 @@ const priceList = [
   {
     id: 2,
     category: "Пожарные щиты, шкафы, ящики",
-    imageSrc: DEFAULT_IMAGE,
+    imageSrc: DefaultMainImage2,
     linkTo: '/catalog/fire-shields-cabinets-boxes',
     items: [
       { id: 1, category: "Пожарные щиты, шкафы, ящики", name: "ШПК-310 (шкаф под рукав)", retailPrice: 2200.00, wholesalePrice: 2090.00, availability: "В наличии", productImage: Cabinet310Image },
@@ -69,7 +78,7 @@ const priceList = [
   {
     id: 3,
     category: "Рукава пожарные для ПК с рабочим давлением 1,0 МПа",
-    imageSrc: DEFAULT_IMAGE,
+    imageSrc: DefaultMainImage3,
     linkTo: '/catalog/fire-hoses',
     items: [
       { id: 1, category: "Рукава пожарные для ПК с рабочим давлением 1,0 МПа", name: "Рукав для ПК Ф51мм с ГР-50,раб. давл. 1,0 МПА (Китай)", retailPrice: 2450.00, wholesalePrice: 2350.00, availability: "В наличии", productImage: Sleeves1 },
@@ -81,7 +90,7 @@ const priceList = [
   {
     id: 4,
     category: "Противопожарный инвентарь",
-    imageSrc: DEFAULT_IMAGE,
+    imageSrc: DefaultMainImage4,
     linkTo: '/catalog/fire-fighting-equipment',
     items: [
      {
@@ -233,42 +242,14 @@ const priceList = [
   {
     id: 5,
     category: "Полиграфическая продукция",
-    imageSrc: DEFAULT_IMAGE,
+    imageSrc: DefaultMainImage5,
     linkTo: '/catalog/printed-products',
     items: [
-      { id: 1,category: "Полиграфическая продукция", name: "Знаки ПБ на клейкой основе", retailPrice: 40.00, wholesalePrice: 38.00, availability: "В наличии",productImage: DEFAULT_IMAGE },
-      { id: 2,category: "Полиграфическая продукция", name: "Знаки ПБ \"Курить запрещается\" (нового образца)", retailPrice: 40.00, wholesalePrice: 38.00, availability: "В наличии",productImage: DEFAULT_IMAGE },
-      { id: 3,category: "Полиграфическая продукция", name: "Знаки ПБ - \"Пожарный гидрант\" на металле", retailPrice: 325.00, wholesalePrice: 310.00, availability: "В наличии",productImage: DEFAULT_IMAGE },
-      { id: 4,category: "Полиграфическая продукция", name: "Знаки ПБ светоотражающие", retailPrice: 70.00, wholesalePrice: 66.00, availability: "В наличии",productImage: DEFAULT_IMAGE },
-      { id: 5,category: "Полиграфическая продукция", name: "Журналы эксплуатации систем противопожарной защиты", retailPrice: 100.00, wholesalePrice: 95.00, availability: "В наличии",productImage: DEFAULT_IMAGE },
-      { id: 6,category: "Полиграфическая продукция", name: "Журналы в ассортименте", retailPrice: 80.00, wholesalePrice: 76.00, availability: "В наличии",productImage: DEFAULT_IMAGE },
-      { id: 7,category: "Полиграфическая продукция", name: "Плакат \"использование огнетушителя\"", retailPrice: 50.00, wholesalePrice: 47.00, availability: "В наличии",productImage: DEFAULT_IMAGE }
-    ]
-  },
-  {
-    id: 6,
-    category: "Огнезащитная обработка",
-    imageSrc: DEFAULT_IMAGE,
-    linkTo: '/catalog/fire-retardant-treatment',
-    items: [
-      { 
-        id: 1,
-        category: "Огнезащитная обработка",
-        name: "Огнезащитная обработка деревянных конструкций, 1 кв.м.", 
-        retailPrice: 35.00, 
-        wholesalePrice: null,
-        productImage: DEFAULT_IMAGE,
-        availability: "В наличии" 
-      },
-      { 
-        id: 2,
-        category: "Огнезащитная обработка",
-        name: "Огнезащитная обработка металлических конструкций огнезащитными, кв.м.", 
-        retailPrice: null, 
-        wholesalePrice: null,
-        productImage: DEFAULT_IMAGE,
-        availability: "Под заказ" 
-      }
+      { id: 1,category: "Полиграфическая продукция", name: "Знаки ПБ на клейкой основе", retailPrice: 40.00, wholesalePrice: 38.00, availability: "В наличии",productImage: PrintedProducts1 },
+      { id: 2,category: "Полиграфическая продукция", name: "Знаки ПБ \"Курить запрещается\" (нового образца)", retailPrice: 40.00, wholesalePrice: 38.00, availability: "В наличии",productImage: PrintedProducts2 },
+      { id: 3,category: "Полиграфическая продукция", name: "Знаки ПБ - \"Пожарный гидрант\" на металле", retailPrice: 325.00, wholesalePrice: 310.00, availability: "В наличии",productImage: PrintedProducts3 },
+      { id: 4,category: "Полиграфическая продукция", name: "Знаки ПБ светоотражающие", retailPrice: 70.00, wholesalePrice: 66.00, availability: "В наличии",productImage: PrintedProducts4 },
+      { id: 5 ,category: "Полиграфическая продукция", name: "Плакат \"использование огнетушителя\"", retailPrice: 50.00, wholesalePrice: 47.00, availability: "В наличии",productImage: PrintedProducts5 }
     ]
   }
 ];

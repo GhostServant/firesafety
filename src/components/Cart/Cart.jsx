@@ -4,40 +4,65 @@ import axios from 'axios';
 import { cartState } from './../../recoil/atoms';
 import CartItem from './CartItem/CartItem';
 import styles from './Cart.module.scss';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { API_BASE_URL, PAYMENT_ENDPOINT } from '../../constants/apiConstants';
 import { v4 as uuidv4 } from 'uuid';
+import Modal from '../Modal/Modal';
 
 const Cart = () => {
   const [cart, setCart] = useRecoilState(cartState);
   const [email, setEmail] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(true);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [patronymic, setPatronymic] = useState('');
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [phone, setPhone] = useState('');
+  const [isPhoneValid, setIsPhoneValid] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [orderStatus, setOrderStatus] = useState(null);
-  
-  const location = useLocation();
+  const [showModal, setShowModal] = useState(false); // Состояние для открытия/закрытия модалки
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
+
+  const handlePaymentConfirm = () => {
+    createPayment(); // Выполнение платежа
+    closeModal(); // Закрытие модалки
+  };
 
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
       setCart(JSON.parse(savedCart));
     }
-  
-    // Восстановление email из локального хранилища
+
+    // Восстановление информации из локального хранилища
     const savedEmail = localStorage.getItem('email');
+    const savedFirstName = localStorage.getItem('firstName');
+    const savedLastName = localStorage.getItem('lastName');
+    const savedPatronymic = localStorage.getItem('patronymic');
+    const savedDeliveryAddress = localStorage.getItem('deliveryAddress');
+    const savedPhone = localStorage.getItem('phone');
     if (savedEmail) {
       setEmail(savedEmail);
       setIsEmailValid(validateEmail(savedEmail));
     }
-  
+    if (savedFirstName) setFirstName(savedFirstName);
+    if (savedLastName) setLastName(savedLastName);
+    if (savedPatronymic) setPatronymic(savedPatronymic);
+    if (savedDeliveryAddress) setDeliveryAddress(savedDeliveryAddress);
+    if (savedPhone) {
+      setPhone(savedPhone);
+      setIsPhoneValid(validatePhone(savedPhone));
+    }
+
     const paymentId = localStorage.getItem('paymentId');
     if (paymentId) {
       checkOrderStatus();
     }
   }, [setCart]);
-  
-
 
   const totalPrice = cart.reduce((sum, item) => {
     const price = item.retailPrice || 0;
@@ -49,120 +74,161 @@ const Cart = () => {
     setCart([]);
     localStorage.removeItem('cart');
     localStorage.removeItem('orderUuid');
-    localStorage.removeItem('email'); // Очистка email
+    localStorage.removeItem('email');
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
+    localStorage.removeItem('patronymic');
+    localStorage.removeItem('deliveryAddress');
+    localStorage.removeItem('phone');
   };
-  
 
   const handleEmailChange = (e) => {
     const newEmail = e.target.value;
     setEmail(newEmail);
     setIsEmailValid(validateEmail(newEmail));
-  
-    // Сохранение email в локальном хранилище
     localStorage.setItem('email', newEmail);
   };
-  
+
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
+    localStorage.setItem('firstName', e.target.value);
+  };
+
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+    localStorage.setItem('lastName', e.target.value);
+  };
+
+  const handlePatronymicChange = (e) => {
+    setPatronymic(e.target.value);
+    localStorage.setItem('patronymic', e.target.value);
+  };
+
+  const handleDeliveryAddressChange = (e) => {
+    setDeliveryAddress(e.target.value);
+    localStorage.setItem('deliveryAddress', e.target.value);
+  };
+
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+
+  // Разрешаем только цифры и символ "+"
+  const formattedValue = value.replace(/[^0-9+]/g, ''); 
+
+  // Проверяем, что номер начинается с +7 или 8 и имеет правильную длину
+  setPhone(formattedValue);
+  setIsPhoneValid(validatePhone(formattedValue));
+  localStorage.setItem('phone', formattedValue);
+  };
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   };
 
-  const checkOrderStatus = async () => {
-    const paymentId = localStorage.getItem('paymentId');
-    const savedEmail = localStorage.getItem('email'); // Получаем сохраненный email
-  
-    if (!paymentId) {
-      setError('ID платежа не найден.');
+  const validatePhone = (phone) => {
+    const re = /^(\+7|8)\d{10}$/;
+    return re.test(phone);
+  };
+
+  const createPayment = async () => {
+    if (!isEmailValid || !email || !firstName || !lastName || !deliveryAddress || !isPhoneValid || !phone) {
+      setError('Пожалуйста, заполните все поля правильно');
       return;
     }
-  
+
     setIsLoading(true);
     setError('');
-    
+
     try {
-      const response = await axios.get(`${API_BASE_URL}${PAYMENT_ENDPOINT}/${paymentId}`);
-      
-      setOrderStatus(response.data.status);
-  
-      if (response.data.status === 'succeeded') {
-        await sendOrderConfirmation(savedEmail, cart); // Используем сохраненный email
-        clearCart();
-      }
+      let orderUuid = uuidv4();
+      localStorage.setItem('orderUuid', orderUuid);
+
+      const response = await axios.post(`${API_BASE_URL}${PAYMENT_ENDPOINT}/${orderUuid}`, {
+        amount: {
+          currency: 'RUB',
+          value: totalPrice.toFixed(2),
+        },
+        description: `Оплата заказа ${orderUuid}`,
+      });
+
+      const paymentId = response.data.id;
+      localStorage.setItem('paymentId', paymentId);
+
+      window.location.href = response.data.confirmation.confirmation_url;
     } catch (error) {
-      console.error('Ошибка при проверке статуса заказа:', error);
-      setError('Произошла ошибка при проверке статуса заказа');
+      console.error('Ошибка при создании платежа:', error);
+      setError('Произошла ошибка при создании платежа');
     } finally {
       setIsLoading(false);
     }
   };
+
+  const [emailSent, setEmailSent] = useState(false); // Флаг для отслеживания отправки письма
+
+const checkOrderStatus = async () => {
+  const paymentId = localStorage.getItem('paymentId');
+  const savedEmail = localStorage.getItem('email');
+  const savedFirstName = localStorage.getItem('firstName');
+  const savedLastName = localStorage.getItem('lastName');
+  const savedPatronymic = localStorage.getItem('patronymic');
+  const savedDeliveryAddress = localStorage.getItem('deliveryAddress');
+  const savedPhone = localStorage.getItem('phone');
+
+  if (!paymentId) {
+    setError('ID платежа не найден.');
+    return;
+  }
+
+  setIsLoading(true);
+  setError('');
+
+  try {
+    const response = await axios.get(`${API_BASE_URL}${PAYMENT_ENDPOINT}/${paymentId}`);
+    setOrderStatus(response.data.status);
+
+    if (response.data.status === 'succeeded' && !emailSent) { // Проверка флага emailSent
+      setEmailSent(true); // Устанавливаем флаг, чтобы не отправить письмо повторно
+      await sendOrderConfirmation(savedEmail, savedFirstName, savedLastName, savedPatronymic, savedDeliveryAddress, savedPhone, cart);
+      clearCart();
+    }
+  } catch (error) {
+    console.error('Ошибка при проверке статуса заказа:', error);
+    setError('Произошла ошибка при проверке статуса заказа');
+  } finally {
+    setIsLoading(false);
+  }
+};
   
-
-
-const sendOrderConfirmation = async (email, cartItems) => {
-  const emailData = {
+  const sendOrderConfirmation = async (email, firstname, surname, patronymic, deliveryAddress, phone, cartItems) => {
+    const emailData = {
       recipient_email: email,
       subject: 'Подтверждение заказа',
       items: cartItems.map(item => ({
-          name: item.name,
-          cost: item.retailPrice || item.wholesalePrice || 0,
-          count: item.quantity
-      }))
-  };
-  try {
-      const resp = await axios.post(`${API_BASE_URL}/mailing/send-email/`, emailData);
-      console.log(resp);
-      
-  } catch (error) {
-      console.error('Ошибка при отправке подтверждения заказа:', error);
-  } finally{
-    localStorage.removeItem('paymentId');
-  }
-};
-
-
-  const createPayment = async () => {
-    if (!isEmailValid || !email) {
-        setError('Пожалуйста, введите корректный email');
-        return;
-    }
-
-    setIsLoading(true);
-    setError('');
-
+        name: item.name,
+        cost: item.retailPrice || item.wholesalePrice || 0,
+        count: item.quantity
+      })),
+      firstname,
+      surname,
+      patronymic,
+      address: deliveryAddress,
+      phone
+    };
+  
     try {
-        // Генерируем UUID для платежа
-        let orderUuid = uuidv4();
-
-
-        // Сохраняем UUID в локальное хранилище для дальнейшей проверки статуса
-        localStorage.setItem('orderUuid', orderUuid);
-        
-        // Создаем запрос на создание платежа с передачей UUID
-        const response = await axios.post(`${API_BASE_URL}${PAYMENT_ENDPOINT}/${orderUuid}`, {
-            amount: {
-                currency: 'RUB',
-                value: totalPrice.toFixed(2),
-            },
-            description: `Оплата заказа ${orderUuid}`,
-        });
-
-        // Сохраняем ID платежа из ответа, чтобы использовать его для проверки статуса платежа
-        const paymentId = response.data.id;
-        localStorage.setItem('paymentId', paymentId);
-
-        // Перенаправляем на страницу подтверждения платежа, используя ссылку из ответа
-        window.location.href = response.data.confirmation.confirmation_url;
+      // Отправка email только один раз
+      const resp = await axios.post(`${API_BASE_URL}/mailing/send-email/`, emailData);
+      console.log('Email отправлен:', resp);
     } catch (error) {
-        console.error('Ошибка при создании платежа:', error);
-        setError('Произошла ошибка при создании платежа');
+      console.error('Ошибка при отправке подтверждения заказа:', error);
     } finally {
-        setIsLoading(false);
+      localStorage.removeItem('paymentId'); // Очистка paymentId после отправки письма
     }
-};
+  };
+  
 
-
-  if (orderStatus === 'successful') {
+  if (orderStatus === 'succeeded') {
     return (
       <div className={styles.cart}>
         <h2>Заказ успешно оплачен</h2>
@@ -202,24 +268,101 @@ const sendOrderConfirmation = async (email, cartItems) => {
             <span>Итого:</span>
             <span>{totalPrice.toFixed(2)} руб.</span>
           </div>
-          <div className={styles.emailInput}>
-            <input
-              type="email"
-              value={email}
-              onChange={handleEmailChange}
-              placeholder="Введите email для чека"
-              className={!isEmailValid ? styles.invalidEmail : ''}
-            />
-            {!isEmailValid && <span className={styles.errorMessage}>Некорректный email</span>}
+          <div className={styles.formFields}>
+            <div className={styles.formField}>
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={handleEmailChange}
+                placeholder="Введите email для чека"
+                className={!isEmailValid ? styles.invalidField : ''}
+              />
+              {!isEmailValid && <span className={styles.errorMessage}>Некорректный email</span>}
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="firstName">Имя:</label>
+              <input
+                type="text"
+                id="firstName"
+                value={firstName}
+                onChange={handleFirstNameChange}
+                placeholder="Введите имя"
+                required
+              />
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="lastName">Фамилия:</label>
+              <input
+                type="text"
+                id="lastName"
+                value={lastName}
+                onChange={handleLastNameChange}
+                placeholder="Введите фамилию"
+                required
+              />
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="patronymic">Отчество:</label>
+              <input
+                type="text"
+                id="patronymic"
+                value={patronymic}
+                onChange={handlePatronymicChange}
+                placeholder="Введите отчество"
+              />
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="deliveryAddress">Адрес доставки:</label>
+              <select
+                id="deliveryAddress"
+                value={deliveryAddress}
+                onChange={handleDeliveryAddressChange}
+                required
+              >
+                <option value="">Выберите пункт доставки</option>
+                <option value="Пункт выдачи Минеральные воды, ул. Новосёлов, 9А">Пункт выдачи Минеральные воды, ул. Новосёлов, 9А</option>
+                <option value="Пункт выдачи Пятигорск, ул. Украинская, 34">Пункт выдачи Пятигорск, ул. Украинская, 34</option>
+              </select>
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="phone">Номер телефона:</label>
+              <input
+                type="tel"
+                id="phone"
+                value={phone}
+                onChange={handlePhoneChange}
+                placeholder="Введите номер телефона"
+                className={!isPhoneValid ? styles.invalidField : ''}
+                required
+              />
+              {!isPhoneValid && <span className={styles.errorMessage}>Номер телефона должен начинаться с +7 или 8 и содержать 10 цифр после кода</span>}
+            </div>
           </div>
           <button 
             className={styles.checkoutButton} 
-            onClick={createPayment}
-            disabled={isLoading || !isEmailValid || !email}
+            onClick={openModal}
+            disabled={isLoading || !isEmailValid || !email || !firstName || !lastName || !deliveryAddress || !isPhoneValid || !phone}
           >
             {isLoading ? 'Загрузка...' : 'Перейти к оплате'}
           </button>
           {error && <div className={styles.errorMessage}>{error}</div>}
+          <Modal 
+        isOpen={showModal} 
+        onClose={closeModal} // Передаем функцию для закрытия модалки
+      >
+        <h2>Пожалуйста, завершите оплату</h2>
+        <p>Перед тем как продолжить, убедитесь, что:</p>
+        <ul>
+          <li>Вы вернулись на страницу корзины после оплаты.</li>
+          <li>Проверьте наличие письма с чеком на указанный email.</li>
+        </ul>
+        <div className={styles.modal_actions}>
+          <button className={styles.button_cart} onClick={handlePaymentConfirm}>Подтвердить оплату</button>
+          <button className={styles.button_cart} onClick={closeModal}>Отмена</button>
+        </div>
+      </Modal>
         </>
       )}
     </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { cartState } from './../../../recoil/atoms';
 import styles from './ItemCard.module.scss';
 import Modal from './../../Modal/Modal';
@@ -8,11 +8,7 @@ import ProductDetails from './../../ProductDetails/ProductDetails';
 const ItemCard = ({ product }) => {
   const [isDetailsModalOpen, setDetailsModalOpen] = useState(false);
   const setCart = useSetRecoilState(cartState);
-  const value = useRecoilValue(cartState);
 
-  const handleDetailsClick = () => {
-    setDetailsModalOpen(true);
-  };
   const handleAddToCart = () => {
     setCart((currentCart) => {
       // Составляем уникальный ключ на основе категории и id товара
@@ -49,7 +45,6 @@ const ItemCard = ({ product }) => {
       
       <div className={styles.buttonContainer}>
         <button onClick={handleAddToCart} className={styles.orderButton}>В корзину</button>
-        <button onClick={handleDetailsClick} className={styles.detailsButton}>Подробнее</button>
       </div>
       
       <Modal isOpen={isDetailsModalOpen} onClose={() => setDetailsModalOpen(false)}>
