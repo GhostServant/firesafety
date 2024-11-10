@@ -16,15 +16,20 @@ function ProductGrid() {
           modules={[Navigation, Pagination]}
           spaceBetween={15} 
           slidesPerView={1}
-          loop={true}
           navigation
           pagination={{ clickable: true }}
           breakpoints={{
-            640: {
+            400: {
               slidesPerView: 2,
+            },
+            640: {
+              slidesPerView: 3,
             },
             1024: {
               slidesPerView: 4, 
+            },
+            1440: {
+              slidesPerView: 5, 
             },
           }}
           className="product-grid-swiper"

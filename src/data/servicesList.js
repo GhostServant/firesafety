@@ -1,3 +1,13 @@
+import Service1 from './../images/bg/services/Checking fire water sources for water loss, IVP (internal water fire extinguishing), NVP.png'
+import Service2 from './../images/bg/services/Evacuation plans.png'
+import Service3 from './../images/bg/services/Fire retardant treatment.png'
+import Service4 from './../images/bg/services/Fire safety declarations, fire risk calculation.png'
+import Service5 from './../images/bg/services/PS installation, PS repair..png'
+import Service6 from './../images/bg/services/PS technical service, Video.png'
+import Service7 from './../images/bg/services/Recharging fire extinguishers.png'
+import Service8 from './../images/bg/services/Testing of fire escapes and roof railings.png'
+
+
 export const services = [
   {
     id: 1,
@@ -5,7 +15,7 @@ export const services = [
     shortDescription: "Заявка, КП, договор",
     fullDescription: "Подготовка и оформление деклараций пожарной безопасности. Процесс включает анализ объекта, сбор документации и расчет пожарного риска. Мы учитываем все нормы и особенности объекта для составления полной и достоверной декларации.",
     linkTo: "/services/fire-safety-declarations",
-    imageSrc: "https://www.magazin01.ru/upload/iblock/3e7/za723qum5p1wpah1gwv2vxihevbfagkr/ipe.png"
+    imageSrc: Service4
   },
   {
     id: 2,
@@ -13,7 +23,7 @@ export const services = [
     shortDescription: "1 раз в 5 лет (Заявка, КП, договор)",
     fullDescription: "Регулярные испытания пожарных лестниц и ограждений кровли для обеспечения их надежности и безопасности. Проводится комплексная проверка, включая визуальный осмотр, проверку прочности и нагрузочные испытания. По результатам испытаний составляется отчет с рекомендациями.",
     linkTo: "/services/ladders-and-roof-guards-testing",
-    imageSrc: "https://www.magazin01.ru/upload/iblock/3e7/za723qum5p1wpah1gwv2vxihevbfagkr/ipe.png"
+    imageSrc: Service8
   },
   {
     id: 3,
@@ -21,7 +31,7 @@ export const services = [
     shortDescription: "Заявка, КП, договор. Стоимость после заявки",
     fullDescription: "Профессиональный монтаж и ремонт систем пожарной сигнализации (ПС). Услуги начинаются с обследования объекта и разработки проекта ПС. Мы используем современное оборудование и опытные специалисты. После установки производится настройка, программирование и тестирование системы.",
     linkTo: "/services/fire-alarm-system-installation-and-repair",
-    imageSrc: "https://www.magazin01.ru/upload/iblock/3e7/za723qum5p1wpah1gwv2vxihevbfagkr/ipe.png"
+    imageSrc: Service5
   },
   {
     id: 4,
@@ -29,7 +39,7 @@ export const services = [
     shortDescription: "Заявка, КП, договор. Стоимость после заявки",
     fullDescription: "Комплексное техническое обслуживание систем противопожарной защиты, включая пожарную сигнализацию, системы видеонаблюдения, внутреннего водяного пожаротушения и наружного водоснабжения. Проводится проверка работоспособности, чистка и настройка оборудования, замена расходных материалов.",
     linkTo: "/services/fire-protection-systems-maintenance",
-    imageSrc: "https://www.magazin01.ru/upload/iblock/3e7/za723qum5p1wpah1gwv2vxihevbfagkr/ipe.png"
+    imageSrc: Service6
   },
   {
     id: 5,
@@ -37,7 +47,7 @@ export const services = [
     shortDescription: "Заявка, КП, договор. Стоимость после заявки",
     fullDescription: "Профессиональное нанесение огнезащитных составов на различные поверхности и конструкции для повышения их огнестойкости. Процесс включает обследование объекта, подготовку поверхности и нанесение огнезащитного состава.",
     linkTo: "/services/fire-protective-coating",
-    imageSrc: "https://www.magazin01.ru/upload/iblock/3e7/za723qum5p1wpah1gwv2vxihevbfagkr/ipe.png"
+    imageSrc: Service3
   },
   {
     id: 6,
@@ -45,7 +55,7 @@ export const services = [
     shortDescription: "Стоимость по прайсу. (ЛП)",
     fullDescription: "Профессиональное техническое обслуживание и перезарядка огнетушителей. Проводится полная диагностика, разборка, очистка и замена огнетушащего вещества. При необходимости выполняется замена деталей.",
     linkTo: "/services/fire-extinguisher-recharging",
-    imageSrc: "https://www.magazin01.ru/upload/iblock/3e7/za723qum5p1wpah1gwv2vxihevbfagkr/ipe.png"
+    imageSrc: Service7
   },
   {
     id: 7,
@@ -53,7 +63,7 @@ export const services = [
     shortDescription: "4300,00 (Формат А2 фотолюминисцентные) (Заявка, КП, договор)",
     fullDescription: "Разработка и изготовление планов эвакуации в соответствии с нормативными требованиями. Процесс включает обследование объекта, создание плана эвакуации, изготовление планов и монтаж в соответствующих местах.",
     linkTo: "/services/evacuation-plans",
-    imageSrc: "https://www.magazin01.ru/upload/iblock/3e7/za723qum5p1wpah1gwv2vxihevbfagkr/ipe.png"
+    imageSrc: Service2
   },
   {
     id: 8,
@@ -61,7 +71,7 @@ export const services = [
     shortDescription: "ПК-проверка-2 р. в год, перемотка рукавов-1р.год (ПК-550,00 без перемотки, 800-с перемоткой) (ПГ-1р.год -4000,00)",
     fullDescription: "Комплексная проверка работоспособности пожарных кранов и гидрантов. Для пожарных кранов проводится визуальный осмотр, проверка целостности и гибкости рукавов, измерение давления и расхода воды.",
     linkTo: "/services/fire-water-sources-check",
-    imageSrc: "https://www.magazin01.ru/upload/iblock/3e7/za723qum5p1wpah1gwv2vxihevbfagkr/ipe.png"
+    imageSrc: Service1,
   }
 ];
 

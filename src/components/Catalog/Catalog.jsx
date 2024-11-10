@@ -17,7 +17,7 @@ function Catalog() {
       <div className="catalog-container">
         <Swiper
           navigation={true}
-          spaceBetween={30}
+          spaceBetween={25}
           breakpoints={{
             300: {
               slidesPerView: 2,
@@ -29,8 +29,11 @@ function Catalog() {
               slidesPerView: 4,
             },
             768: {
+              slidesPerView: 4,
+            },
+            1440: {
               slidesPerView: 5,
-          },
+            },
           }}
           loop={true}
           modules={[Navigation]}
