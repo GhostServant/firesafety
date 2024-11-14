@@ -14,8 +14,8 @@ const Contacts = () => {
   const mapZoom = 9;
   const locations = [
     { coordinates: [44.044521, 42.858761], type: "office", label: "Главный офис" },
-    { coordinates: [44.191784, 43.129368], type: "pickup", label: "Пункт выдачи Минеральные Воды, Новоселов 9А" },
-    { coordinates: [44.048087, 43.059196], type: "pickup", label: "Пункт выдачи Пятигорск, Украинская 34" },
+    { coordinates: [44.191635, 43.133156], type: "pickup", label: "Пункт выдачи Минеральные Воды, Новоселов 9А" },
+    { coordinates: [44.044422, 43.040459], type: "pickup", label: "Пункт выдачи Пятигорск, Украинская 34" },
   ];
 
   return (

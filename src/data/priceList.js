@@ -68,8 +68,8 @@ const priceList = [
       { id: 1, category: "Пожарные щиты, шкафы, ящики", name: "ШПК-310 (шкаф под рукав)", retailPrice: 2200.00, wholesalePrice: 2090.00, availability: "В наличии", productImage: Cabinet310Image },
       { id: 2, category: "Пожарные щиты, шкафы, ящики", name: "ШПК-315 (рукав, огнетушитель)", retailPrice: 3200.00, wholesalePrice: 3040.00, availability: "В наличии", productImage: Cabinet315Image },
       { id: 3, category: "Пожарные щиты, шкафы, ящики", name: "ШПО-103 (шкаф для 1 огнетушителя)", retailPrice: 1900.00, wholesalePrice: 1800.00, availability: "В наличии", productImage: Cabinet103Image },
-      { id: 4, category: "Пожарные щиты, шкафы, ящики", name: "Щит пожарный открытый (неукомплектованный)", retailPrice: 1590.00, wholesalePrice: 1510.00, availability: "В наличии", productImage: Cabinet1Image },
-      { id: 5, category: "Пожарные щиты, шкафы, ящики", name: "Щит пожарный закрытый (неукомплектованный)", retailPrice: 4290.00, wholesalePrice: 4075.00, availability: "В наличии", productImage: Cabinet2Image },
+      { id: 4, category: "Пожарные щиты, шкафы, ящики", name: "Щит пожарный открытый (неукомплектованный)", retailPrice: 1590.00, wholesalePrice: 1510.00, availability: "В наличии", productImage: Cabinet2Image },
+      { id: 5, category: "Пожарные щиты, шкафы, ящики", name: "Щит пожарный закрытый (неукомплектованный)", retailPrice: 4290.00, wholesalePrice: 4075.00, availability: "В наличии", productImage: Cabinet1Image },
       { id: 6, category: "Пожарные щиты, шкафы, ящики", name: "Ящик пожарный ЯП-0,1 куб.м", retailPrice: 2700.00, wholesalePrice: 2430.00, availability: "В наличии", productImage: Cabinet01Image },
       { id: 7, category: "Пожарные щиты, шкафы, ящики", name: "Ящик пожарный ЯП-0,2 куб.м", retailPrice: 3770.00, wholesalePrice: 3570.00, availability: "В наличии", productImage: Cabinet02Image },
       { id: 8, category: "Пожарные щиты, шкафы, ящики", name: "Ящик пожарный ЯП-0,5 куб.м", retailPrice: null, wholesalePrice: null, availability: "Под заказ", productImage: Cabinet05Image }
@@ -90,7 +90,7 @@ const priceList = [
   {
     id: 4,
     category: "Противопожарный инвентарь",
-    imageSrc: DefaultMainImage4,
+    imageSrc: DefaultMainImage5,
     linkTo: '/catalog/fire-fighting-equipment',
     items: [
      {
@@ -204,7 +204,7 @@ const priceList = [
   {
     id: 13,
     category: "Противопожарный инвентарь",
-    name: "Гаф пожарный",
+    name: "Багор пожарный",
     retailPrice: 130.00,
     wholesalePrice: 125.00,
     availability: "В наличии",
@@ -242,7 +242,7 @@ const priceList = [
   {
     id: 5,
     category: "Полиграфическая продукция",
-    imageSrc: DefaultMainImage5,
+    imageSrc: DefaultMainImage4,
     linkTo: '/catalog/printed-products',
     items: [
       { id: 1,category: "Полиграфическая продукция", name: "Знаки ПБ на клейкой основе", retailPrice: 40.00, wholesalePrice: 38.00, availability: "В наличии",productImage: PrintedProducts1 },

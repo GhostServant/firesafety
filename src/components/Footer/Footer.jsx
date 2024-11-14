@@ -46,12 +46,6 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div className={styles.footerBottom}>
-        <div className={styles.container}>
-          <p className={styles.copyright}>© 2006-2024 «Магазин 01». Все права защищены.</p>
-          <Link to="/privacy-policy" className={styles.policyLink}>Политика конфиденциальности</Link>
-        </div>
-      </div>
     </footer>
   );
 }
