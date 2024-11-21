@@ -22,7 +22,9 @@ const Cart = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [orderStatus, setOrderStatus] = useState(null);
-  const [showModal, setShowModal] = useState(false); // Состояние для открытия/закрытия модалки
+  const [showModal, setShowModal] = useState(false);
+  const [clientType, setClientType] = useState('physical');
+  const [inn, setInn] = useState('');
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
@@ -45,10 +47,14 @@ const Cart = () => {
     const savedPatronymic = localStorage.getItem('patronymic');
     const savedDeliveryAddress = localStorage.getItem('deliveryAddress');
     const savedPhone = localStorage.getItem('phone');
+    const savedClientType = localStorage.getItem('clientType');
+    const savedInn = localStorage.getItem('inn');
     if (savedEmail) {
       setEmail(savedEmail);
       setIsEmailValid(validateEmail(savedEmail));
     }
+    if (savedClientType) setClientType(savedClientType);
+    if (savedInn) setInn(savedInn);
     if (savedFirstName) setFirstName(savedFirstName);
     if (savedLastName) setLastName(savedLastName);
     if (savedPatronymic) setPatronymic(savedPatronymic);
@@ -80,6 +86,7 @@ const Cart = () => {
     localStorage.removeItem('patronymic');
     localStorage.removeItem('deliveryAddress');
     localStorage.removeItem('phone');
+    localStorage.removeItem('inn');
   };
 
   const handleEmailChange = (e) => {
@@ -88,7 +95,6 @@ const Cart = () => {
     setIsEmailValid(validateEmail(newEmail));
     localStorage.setItem('email', newEmail);
   };
-
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
     localStorage.setItem('firstName', e.target.value);
@@ -102,6 +108,11 @@ const Cart = () => {
   const handlePatronymicChange = (e) => {
     setPatronymic(e.target.value);
     localStorage.setItem('patronymic', e.target.value);
+  };
+
+  const handleInnChange = (e) => {
+    setInn(e.target.value);
+    localStorage.setItem('inn', e.target.value);
   };
 
   const handleDeliveryAddressChange = (e) => {
@@ -174,7 +185,8 @@ const checkOrderStatus = async () => {
   const savedPatronymic = localStorage.getItem('patronymic');
   const savedDeliveryAddress = localStorage.getItem('deliveryAddress');
   const savedPhone = localStorage.getItem('phone');
-
+  const savedInn = localStorage.getItem('inn') ?? '-';
+  
   if (!paymentId) {
     setError('ID платежа не найден.');
     return;
@@ -189,7 +201,9 @@ const checkOrderStatus = async () => {
 
     if (response.data.status === 'succeeded' && !emailSent) { // Проверка флага emailSent
       setEmailSent(true); // Устанавливаем флаг, чтобы не отправить письмо повторно
-      await sendOrderConfirmation(savedEmail, savedFirstName, savedLastName, savedPatronymic, savedDeliveryAddress, savedPhone, cart);
+      await sendOrderConfirmation(savedEmail, savedFirstName, 
+        savedLastName, savedPatronymic, savedDeliveryAddress, 
+        savedPhone,savedInn, cart);
       clearCart();
     }
   } catch (error) {
@@ -200,7 +214,8 @@ const checkOrderStatus = async () => {
   }
 };
   
-  const sendOrderConfirmation = async (email, firstname, surname, patronymic, deliveryAddress, phone, cartItems) => {
+  const sendOrderConfirmation = async (email, firstname, surname, 
+    patronymic, deliveryAddress, phone,inn, cartItems) => {
     const emailData = {
       recipient_email: email,
       subject: 'Подтверждение заказа',
@@ -213,13 +228,13 @@ const checkOrderStatus = async () => {
       surname,
       patronymic,
       address: deliveryAddress,
-      phone
+      phone,
+      inn,
     };
   
     try {
       // Отправка email только один раз
       const resp = await axios.post(`${API_BASE_URL}/mailing/send-email/`, emailData);
-      console.log('Email отправлен:', resp);
     } catch (error) {
       console.error('Ошибка при отправке подтверждения заказа:', error);
     } finally {
@@ -268,6 +283,22 @@ const checkOrderStatus = async () => {
             <span>Итого:</span>
             <span>{totalPrice.toFixed(2)} руб.</span>
           </div>
+          <div className={styles.clientTypeSelector}>
+  <button 
+    type="button"
+    className={clientType === 'physical' ? styles.active : ''}
+    onClick={() => setClientType('physical')}
+  >
+    Физическое лицо
+  </button>
+  <button
+    type="button" 
+    className={clientType === 'legal' ? styles.active : ''}
+    onClick={() => setClientType('legal')}
+  >
+    Юридическое лицо
+  </button>
+</div>
           <div className={styles.formFields}>
             <div className={styles.formField}>
               <label htmlFor="email">Email:</label>
@@ -280,7 +311,19 @@ const checkOrderStatus = async () => {
                 className={!isEmailValid ? styles.invalidField : ''}
               />
               {!isEmailValid && <span className={styles.errorMessage}>Некорректный email</span>}
-            </div>
+            </div> {clientType === 'legal' && (
+    <div className={styles.formField}>
+      <label htmlFor="inn">ИНН:</label>
+      <input
+        type="text"
+        id="inn"
+        value={inn}
+        onChange={handleInnChange}
+        placeholder="Введите ИНН"
+        required
+      />
+    </div>
+  )}
             <div className={styles.formField}>
               <label htmlFor="firstName">Имя:</label>
               <input
@@ -303,6 +346,7 @@ const checkOrderStatus = async () => {
                 required
               />
             </div>
+            
             <div className={styles.formField}>
               <label htmlFor="patronymic">Отчество:</label>
               <input
@@ -324,6 +368,7 @@ const checkOrderStatus = async () => {
                 <option value="">Выберите пункт доставки</option>
                 <option value="Пункт выдачи Минеральные воды, ул. Новосёлов, 9А">Пункт выдачи Минеральные воды, ул. Новосёлов, 9А</option>
                 <option value="Пункт выдачи Пятигорск, ул. Украинская, 34">Пункт выдачи Пятигорск, ул. Украинская, 34</option>
+                <option value="г. Ессентуки, ул. Советская, 67А">г. Ессентуки, ул. Советская, 67А</option>
               </select>
             </div>
             <div className={styles.formField}>

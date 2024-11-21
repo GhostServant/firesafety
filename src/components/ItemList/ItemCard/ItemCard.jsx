@@ -7,16 +7,16 @@ import ProductDetails from './../../ProductDetails/ProductDetails';
 
 const ItemCard = ({ product }) => {
   const [isDetailsModalOpen, setDetailsModalOpen] = useState(false);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
   const setCart = useSetRecoilState(cartState);
 
   const handleAddToCart = () => {
     setCart((currentCart) => {
-      // Составляем уникальный ключ на основе категории и id товара
       const uniqueKey = `${product.category}_${product.id}`;
       const existingItem = currentCart.find(item => item.uniqueKey === uniqueKey);
-      
+
       if (existingItem) {
-        return currentCart.map(item => 
+        return currentCart.map(item =>
           item.uniqueKey === uniqueKey
             ? { ...item, quantity: item.quantity + 1 }
             : item
@@ -25,9 +25,11 @@ const ItemCard = ({ product }) => {
         return [...currentCart, { ...product, quantity: 1, uniqueKey }];
       }
     });
+
+    setIsAddedToCart(true);
+    setTimeout(() => setIsAddedToCart(false), 4000); // Скрыть уведомление через 2 секунды
   };
-  
-  
+
   return (
     <div className={styles.card}>
       <img src={product.productImage} alt={product.name} className={styles.image} />
@@ -42,11 +44,18 @@ const ItemCard = ({ product }) => {
           <span className={styles.wholesalePrice}>{product.wholesalePrice} руб./шт (опт)</span>
         )}
       </p>
-      
+
       <div className={styles.buttonContainer}>
-        <button onClick={handleAddToCart} className={styles.orderButton}>В корзину</button>
+        <button
+          onClick={handleAddToCart}
+          className={`${styles.orderButton} ${isAddedToCart ? styles.addedToCart : ''}`}
+        >
+          {isAddedToCart ? 'Добавлено в корзину' : 'В корзину'}
+        </button>
       </div>
-      
+
+      {isAddedToCart && <div className={styles.notification}>Товар добавлен в корзину!</div>}
+
       <Modal isOpen={isDetailsModalOpen} onClose={() => setDetailsModalOpen(false)}>
         <ProductDetails product={product} />
       </Modal>

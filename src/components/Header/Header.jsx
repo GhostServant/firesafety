@@ -5,7 +5,7 @@ import OrderForm from '../OrderForm/OrderForm';
 import './Header.scss';
 import { useRecoilValue } from 'recoil';
 import { cartState } from '../../recoil/atoms';
-import HeaderLogo from './../../images/bg/logo.png'
+import HeaderLogo from './../../images/bg/logo.jpg';
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
