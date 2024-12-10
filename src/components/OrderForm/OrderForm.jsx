@@ -225,19 +225,6 @@ const OrderForm = ({
           </div>
         )}
 
-        {showPhone && (
-          <div className={styles.field}>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Телефон *"
-            />
-            {errors.phone && <span className={styles.error}>{errors.phone}</span>}
-          </div>
-        )}
 
         {showEmail && (
           <div className={styles.field}>
@@ -277,6 +264,20 @@ const OrderForm = ({
               placeholder="Количество *"
             />
             {errors.quantity && <span className={styles.error}>{errors.quantity}</span>}
+          </div>
+        )}
+
+{showPhone && (
+          <div className={styles.field}>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Телефон *"
+            />
+            {errors.phone && <span className={styles.error}>{errors.phone}</span>}
           </div>
         )}
 

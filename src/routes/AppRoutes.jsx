@@ -10,6 +10,7 @@ const CategoryPage = lazy(() => import('../pages/CategoryPage'));
 const ContactPage = lazy(() => import('../pages/ContactPage'));
 const ServicesItemPage = lazy(() => import('../pages/ServicesItemPage'));
 const CartPage = lazy(() => import('../pages/CartPage'));
+const DocPage = lazy(() => import('../pages/DocPage'));
 const Layout = lazy(() => import('./../components/Layout/Layout'));
 
 const AppRoutes = () => {
@@ -26,6 +27,7 @@ const AppRoutes = () => {
             <Route path="catalog/:categorySlug" element={<CategoryPage />} />
             <Route path="contacts" element={<ContactPage />} />
             <Route path="basket" element={<CartPage />} />
+            <Route path="/doc/:fileName" element={<DocPage />} />
           </Route>
         </Routes>
       </Suspense>

@@ -1,0 +1,70 @@
+.doc-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  padding: 20px;
+
+  .error {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .paper-container {
+    perspective: 1000px;
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+  }
+
+  .paper {
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 100%;
+    transition: transform 0.3s;
+
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 0;
+    }
+
+    p {
+      margin-bottom: 1em;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .doc-page {
+    padding: 15px;
+
+    .paper {
+      padding: 15px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .doc-page {
+    padding: 10px;
+
+    .paper {
+      padding: 10px;
+      font-size: 0.9em;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .doc-page {
+    padding: 5px;
+
+    .paper {
+      padding: 10px;
+      font-size: 0.8em;
+    }
+  }
+}

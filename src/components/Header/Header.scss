@@ -51,23 +51,29 @@
       display: flex;
       align-items: center;
 
-      .order-button {
-        margin-right: 15px;
-        padding: 10px 15px;
-        background-color: #fd331d;
-        color: white;
+      .order-button, .call-button, .file-list-button {
+        display: flex;
+        align-items: center;
+        background: none;
         border: none;
-        border-radius: 5px;
         cursor: pointer;
-        transition: background-color 0.3s;
+        padding: 10px 15px;
+        margin-right: 10px;
+        position: relative;
+        color: #333;
         font-size: 16px;
+        transition: color 0.3s;
+
+        .icon {
+          margin-right: 5px;
+        }
 
         &:hover {
-          background-color: darken(#fd331d, 10%);
+          color: #FE8B1E;
         }
       }
 
-      .call-button, .cart {
+      .cart {
         background: none;
         border: none;
         cursor: pointer;
@@ -83,9 +89,7 @@
         &:hover svg {
           fill: #FE8B1E;
         }
-      }
 
-      .cart {
         .cart-count {
           position: absolute;
           top: -5px;
@@ -138,7 +142,7 @@
 
       .action-buttons {
         order: 2;
-        .order-button{
+        .order-button, .call-button, .file-list-button {
           padding: 7px 12px;
           font-size: 14px;
         }
@@ -156,7 +160,7 @@
     .scroll-progress {
       top: 103px;
     }
-    & .header-top .action-buttons .order-button{
+    & .header-top .action-buttons .order-button, .call-button, .file-list-button {
       padding: 7px 12px;
       font-size: 14px;
     }

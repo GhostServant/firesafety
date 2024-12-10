@@ -1,20 +1,23 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import Modal from './../Modal/Modal';
 import OrderForm from '../OrderForm/OrderForm';
+import FileListModal from './../FileListModal/FileListModal';
 import './Header.scss';
 import { useRecoilValue } from 'recoil';
 import { cartState } from '../../recoil/atoms';
 import HeaderLogo from './../../images/bg/logo.jpg';
+import { FaFileAlt } from 'react-icons/fa'; // Иконка для файлов
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  const [isFileListModalOpen, setIsFileListModalOpen] = useState(false); // Новое состояние для модального окна со списком файлов
 
   const cart = useRecoilValue(cartState);
-  const location = useLocation(); // Получаем текущий URL
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,16 +36,14 @@ function Header() {
       setScrollProgress(scrollPercent > 100 ? 100 : scrollPercent);
     };
 
-    // Если не на странице /basket, активируем обработчик прокрутки
     if (location.pathname !== '/basket') {
       window.addEventListener('scroll', handleScroll);
-      handleScroll(); // Инициализация прогресса при загрузке страницы
+      handleScroll();
     } else {
-      setIsScrolled(false); // Сбрасываем состояние скролла
-      setScrollProgress(0); // Сбрасываем прогресс
+      setIsScrolled(false);
+      setScrollProgress(0);
     }
 
-    // Чистим обработчик при размонтировании и переходе на /basket
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);
 
@@ -54,9 +55,14 @@ function Header() {
     setIsOrderModalOpen(true);
   };
 
+  const handleFileListButtonClick = () => {
+    setIsFileListModalOpen(true);
+  };
+
   const handleCloseModal = () => {
     setIsCallModalOpen(false);
     setIsOrderModalOpen(false);
+    setIsFileListModalOpen(false);
   };
 
   return (
@@ -76,9 +82,13 @@ function Header() {
         <div className="action-buttons">
           <button className="order-button" onClick={handleOrderButtonClick}>Оставить заявку</button>
           <button className="call-button" onClick={handleCallButtonClick}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
               <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 00-1.02.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM19 12h2a9 9 0 00-9-9v2c3.87 0 7 3.13 7 7zm-4 0h2c0-2.76-2.24-5-5-5v2c1.66 0 3 1.34 3 3z"/>
             </svg>
+          </button>
+          <button className="file-list-button" onClick={handleFileListButtonClick}>
+            <FaFileAlt className="icon" />
+            <span>Формы заявок</span>
           </button>
           <Link to="/basket" className="cart">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
@@ -88,14 +98,13 @@ function Header() {
           </Link>
         </div>
       </div>
-      
-      {/* Скрываем прогресс бар на странице /basket */}
+
       {location.pathname !== '/basket' && (
         <div className="scroll-progress" style={{ width: `${scrollProgress}%` }}></div>
       )}
 
       <Modal isOpen={isCallModalOpen} onClose={handleCloseModal}>
-        <OrderForm 
+        <OrderForm
           title={'Заказать звонок'}
           showEmail={false}
           showMessage={false}
@@ -105,7 +114,7 @@ function Header() {
         />
       </Modal>
       <Modal isOpen={isOrderModalOpen} onClose={handleCloseModal}>
-        <OrderForm 
+        <OrderForm
           title={'Оставить заявку'}
           showEmail={false}
           showName={false}
@@ -116,6 +125,7 @@ function Header() {
           scenario={1}
         />
       </Modal>
+      <FileListModal isOpen={isFileListModalOpen} onClose={handleCloseModal} /> {/* Новый компонент */}
     </header>
   );
 }
