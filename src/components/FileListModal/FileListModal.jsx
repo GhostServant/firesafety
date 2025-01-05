@@ -1,6 +1,6 @@
 import React from 'react';
-import Modal from './../Modal/Modal';
-import { DocsList } from './../../data/docs';
+import Modal from '../Modal/Modal';
+import { DocsList } from '../../data/docs';
 import './FileListModal.scss'; // Импортируем стили
 import { FaFileAlt } from 'react-icons/fa'; // Иконка для файлов
 import { Link } from 'react-router-dom';

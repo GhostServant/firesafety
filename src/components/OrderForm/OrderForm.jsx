@@ -95,7 +95,6 @@ const OrderForm = ({
     const file = e.target.files[0];
     if (file) {
       convertFileToBase64(file).then(base64File => {
-        console.log('Base64 file:', base64File);
         setFormData(prevData => ({
           ...prevData,
           file_data: [base64File], // Теперь это массив с одним элементом

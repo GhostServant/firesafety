@@ -1,11 +1,11 @@
-import Service1 from './../images/bg/services/Checking fire water sources for water loss, IVP (internal water fire extinguishing), NVP.png'
+import Service1 from './../images/bg/services/Checking fire water sources for water discharge, GDP (internal water supplyfire fighting), NVP.png'
 import Service2 from './../images/bg/services/Evacuation plans.png'
-import Service3 from './../images/bg/services/Fire retardant treatment.png'
-import Service4 from './../images/bg/services/Fire safety declarations, fire risk calculation.png'
-import Service5 from './../images/bg/services/PS installation, PS repair..png'
-import Service6 from './../images/bg/services/PS technical service, Video.png'
-import Service7 from './../images/bg/services/Recharging fire extinguishers.png'
-import Service8 from './../images/bg/services/Testing of fire escapes and roof railings.png'
+import Service3 from './../images/bg/services/Flame retardant treatment.png'
+import Service4 from './../images/bg/services/Declarations of fire safety, calculation of fire risk.png'
+import Service5 from './../images/bg/services/PS installation, PS repair.png'
+import Service6 from './../images/bg/services/Tech.PS service, Video.png'
+import Service7 from './../images/bg/services/Reloading fire extinguishers.png'
+import Service8 from './../images/bg/services/Testing of fire escapes and roof fences.png'
 
 
 export const services = [
