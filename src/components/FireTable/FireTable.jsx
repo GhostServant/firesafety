@@ -1,7 +1,6 @@
-import fireExtinguisherServices from './../../data/fireExtinguisherServices';
-import styles from './FireExtinguisherTable.module.scss';
+import styles from './FireTable.module.scss';
 
-const FireExtinguisherTable = () => {
+const FireTable = ({ headers, rows }) => {
   return (
     <div className={styles.tableContainer}>
       <div className={styles.scrollIndicator}>
@@ -11,7 +10,7 @@ const FireExtinguisherTable = () => {
         <table className={styles.table}>
           <thead>
             <tr>
-              {fireExtinguisherServices.headers.map((header, index) => (
+              {headers.map((header, index) => (
                 <th key={index} className={styles.tableHeader}>
                   {header}
                 </th>
@@ -19,7 +18,7 @@ const FireExtinguisherTable = () => {
             </tr>
           </thead>
           <tbody>
-            {fireExtinguisherServices.rows.map((row, rowIndex) => (
+            {rows.map((row, rowIndex) => (
               <tr key={rowIndex}>
                 <td className={styles.rowName}>{row.name}</td>
                 {row.values.map((value, cellIndex) => (
@@ -36,4 +35,4 @@ const FireExtinguisherTable = () => {
   );
 };
 
-export default FireExtinguisherTable;
+export default FireTable;

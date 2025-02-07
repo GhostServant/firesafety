@@ -27,17 +27,16 @@ function Footer() {
             <div className={styles.contactItem}>
               <img src={PhoneIcon} alt="Phone" className={styles.icon} />
               <div className={styles.contactInfo}>
-                <a href="tel:+78793436734" className={styles.contactLink}>+7 (879) 343-67-34</a>
-                <a href="tel:+78793436735" className={styles.contactLink}>+7 (879) 343-67-35</a>
+                <a href="tel:+79283500201" className={styles.contactLink}>+7 (928) 350-02-01</a>
               </div>
             </div>
             <div className={styles.contactItem}>
               <img src={EmailIcon} alt="Email" className={styles.icon} />
-              <a href="mailto:vdpo.kmv@mail.ru" className={styles.contactLink}>vdpo.kmv@mail.ru</a>
+              <a href="mailto:sistemask26@mail.ru" className={styles.contactLink}>sistemask26@mail.ru</a>
             </div>
             <div className={styles.contactItem}>
               <img src={AddressIcon} alt="Address" className={styles.icon} />
-              <p className={styles.addressText}>г. Есентуки, ул. Советская, 67А</p>
+              <p className={styles.addressText}>Минеральные воды, ул.Новосёлов 9А</p>
             </div>
           </div>
           <div className={styles.footerSection}>

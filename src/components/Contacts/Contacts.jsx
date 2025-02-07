@@ -6,15 +6,15 @@ import styles from './Contacts.module.scss';
 const Contacts = () => {
   const companyDescription = "Мы - ведущая организация в сфере пожарной безопасности, предоставляющая широкий спектр услуг по защите жизни и имущества от огня.";
   const contactInfo = {
-    address: "г. Ессентуки, ул. Советская, 67А",
-    phones: ["+7 (879) 343-67-34", "+7 (879) 343-67-35"],
-    email: "vdpo.kmv@mail.ru"
+    address: "Минеральные воды, ул.Новосёлов 9А",
+    phones: ["+7 (928) 350-02-01"],
+    email: "sistemask26@mail.ru"
   };
   const mapCenter = [44.044521, 42.858761];
   const mapZoom = 9;
   const locations = [
-    { coordinates: [44.044521, 42.858761], type: "office", label: "Главный офис" },
-    { coordinates: [44.191635, 43.133156], type: "pickup", label: "Пункт выдачи Минеральные Воды, Новоселов 9А" },
+    { coordinates: [44.191635, 43.133156], type: "office", label: "Главный офис" },
+    { coordinates: [44.044521, 42.858761], type: "pickup", label: "Пункт выдачи г. Ессентуки, ул. Советская, 67А" },
     { coordinates: [44.044422, 43.040459], type: "pickup", label: "Пункт выдачи Пятигорск, Украинская 34" },
   ];
 

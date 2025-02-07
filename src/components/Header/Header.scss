@@ -1,6 +1,6 @@
 .header {
   background-color: white;
-  padding: 10px 20px;
+  padding: 0;
   color: #343434;
   background-color: #fefefe;
 
@@ -13,6 +13,9 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
 
+  &-wrapper{
+    padding: 10px 20px;
+  }
   .header-top {
     display: flex;
     justify-content: space-between;
@@ -111,11 +114,6 @@
   .scroll-progress {
     height: 3px;
     background-color: #FE8B1E;
-    position: fixed;
-    top: 73px;
-    left: 0;
-    width: 0;
-    z-index: 999;
     transition: width 0.1s ease;
   }
 }
@@ -148,18 +146,11 @@
         }
       }
     }
-
-    .scroll-progress {
-      top: 103px;
-    }
   }
 }
 
 @media (max-width: 768px) {
   .header {
-    .scroll-progress {
-      top: 103px;
-    }
     & .header-top .action-buttons .order-button, .call-button, .file-list-button {
       padding: 7px 12px;
       font-size: 14px;
@@ -169,7 +160,9 @@
 
 @media (max-width: 480px) {
   .header {
-    padding: 12px 10px;
+    &-wrapper{
+      padding: 12px 10px;
+    }
     & .header-top .top-nav ul li a{
       font-size: 14px;
     }
@@ -183,8 +176,5 @@
       row-gap: 0.3rem;
     }
 
-    .scroll-progress {
-      top: 154px;
-    }
   }
 }
