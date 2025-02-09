@@ -5,9 +5,7 @@ import { cartState } from './../../recoil/atoms';
 import CartItem from './CartItem/CartItem';
 import styles from './Cart.module.scss';
 import { Link } from 'react-router-dom';
-import { API_BASE_URL, PAYMENT_ENDPOINT } from '../../constants/apiConstants';
-import { v4 as uuidv4 } from 'uuid';
-import Modal from '../Modal/Modal';
+import { API_BASE_URL } from '../../constants/apiConstants';
 
 const Cart = () => {
   const [cart, setCart] = useRecoilState(cartState);
@@ -21,17 +19,11 @@ const Cart = () => {
   const [isPhoneValid, setIsPhoneValid] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [orderStatus, setOrderStatus] = useState(null);
-  const [showModal, setShowModal] = useState(false);
   const [clientType, setClientType] = useState('physical');
   const [inn, setInn] = useState('');
 
-  const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
-
   const handlePaymentConfirm = () => {
-    createPayment(); // Выполнение платежа
-    closeModal(); // Закрытие модалки
+    createPayment();
   };
 
   useEffect(() => {
@@ -62,11 +54,6 @@ const Cart = () => {
     if (savedPhone) {
       setPhone(savedPhone);
       setIsPhoneValid(validatePhone(savedPhone));
-    }
-
-    const paymentId = localStorage.getItem('paymentId');
-    if (paymentId) {
-      checkOrderStatus();
     }
   }, [setCart]);
 
@@ -148,71 +135,32 @@ const Cart = () => {
       return;
     }
 
+    const savedEmail = localStorage.getItem('email');
+    const savedFirstName = localStorage.getItem('firstName');
+    const savedLastName = localStorage.getItem('lastName');
+    const savedPatronymic = localStorage.getItem('patronymic');
+    const savedDeliveryAddress = localStorage.getItem('deliveryAddress');
+    const savedPhone = localStorage.getItem('phone');
+    const savedInn = localStorage.getItem('inn') ?? 'Физическое лицо';
+    
+
     setIsLoading(true);
     setError('');
 
     try {
-      let orderUuid = uuidv4();
-      localStorage.setItem('orderUuid', orderUuid);
-
-      const response = await axios.post(`${API_BASE_URL}${PAYMENT_ENDPOINT}/${orderUuid}`, {
-        amount: {
-          currency: 'RUB',
-          value: totalPrice.toFixed(2),
-        },
-        description: `Оплата заказа ${orderUuid}`,
-      });
-
-      const paymentId = response.data.id;
-      localStorage.setItem('paymentId', paymentId);
-
-      window.location.href = response.data.confirmation.confirmation_url;
+      await sendOrderConfirmation(savedEmail, savedFirstName, 
+        savedLastName, savedPatronymic, savedDeliveryAddress, 
+        savedPhone,savedInn, cart);
     } catch (error) {
       console.error('Ошибка при создании платежа:', error);
       setError('Произошла ошибка при создании платежа');
     } finally {
       setIsLoading(false);
+      clearCart();
     }
   };
 
   const [emailSent, setEmailSent] = useState(false); // Флаг для отслеживания отправки письма
-
-const checkOrderStatus = async () => {
-  const paymentId = localStorage.getItem('paymentId');
-  const savedEmail = localStorage.getItem('email');
-  const savedFirstName = localStorage.getItem('firstName');
-  const savedLastName = localStorage.getItem('lastName');
-  const savedPatronymic = localStorage.getItem('patronymic');
-  const savedDeliveryAddress = localStorage.getItem('deliveryAddress');
-  const savedPhone = localStorage.getItem('phone');
-  const savedInn = localStorage.getItem('inn') ?? '-';
-  
-  if (!paymentId) {
-    setError('ID платежа не найден.');
-    return;
-  }
-
-  setIsLoading(true);
-  setError('');
-
-  try {
-    const response = await axios.get(`${API_BASE_URL}${PAYMENT_ENDPOINT}/${paymentId}`);
-    setOrderStatus(response.data.status);
-
-    if (response.data.status === 'succeeded' && !emailSent) { // Проверка флага emailSent
-      setEmailSent(true); // Устанавливаем флаг, чтобы не отправить письмо повторно
-      await sendOrderConfirmation(savedEmail, savedFirstName, 
-        savedLastName, savedPatronymic, savedDeliveryAddress, 
-        savedPhone,savedInn, cart);
-      clearCart();
-    }
-  } catch (error) {
-    console.error('Ошибка при проверке статуса заказа:', error);
-    setError('Произошла ошибка при проверке статуса заказа');
-  } finally {
-    setIsLoading(false);
-  }
-};
   
   const sendOrderConfirmation = async (email, firstname, surname, 
     patronymic, deliveryAddress, phone,inn, cartItems) => {
@@ -221,7 +169,7 @@ const checkOrderStatus = async () => {
       subject: 'Подтверждение заказа',
       items: cartItems.map(item => ({
         name: item.name,
-        cost: item.retailPrice || item.wholesalePrice || 0,
+        cost: item.retailPrice > 0 ? item.quantity * item.retailPrice >= 50000 ? item.wholesalePrice : item.retailPrice : 0,
         count: item.quantity
       })),
       firstname,
@@ -233,21 +181,19 @@ const checkOrderStatus = async () => {
     };
   
     try {
-      // Отправка email только один раз
       const resp = await axios.post(`${API_BASE_URL}/mailing/send-email/`, emailData);
+      setEmailSent(resp?.status)
     } catch (error) {
       console.error('Ошибка при отправке подтверждения заказа:', error);
-    } finally {
-      localStorage.removeItem('paymentId'); // Очистка paymentId после отправки письма
     }
   };
   
 
-  if (orderStatus === 'succeeded') {
+  if (emailSent === 200) {
     return (
       <div className={styles.cart}>
-        <h2>Заказ успешно оплачен</h2>
-        <p>Спасибо за ваш заказ! Подтверждение отправлено на ваш email.</p>
+        <h2>Заказ успешно сформирован</h2>
+        <p>Спасибо за ваш заказ!</p>
         <Link to="/catalog" className={styles.continueShopping}>Вернуться в каталог</Link>
       </div>
     );
@@ -366,9 +312,9 @@ const checkOrderStatus = async () => {
                 required
               >
                 <option value="">Выберите пункт доставки</option>
-                <option value="Пункт выдачи Минеральные воды, ул. Новосёлов, 9А">Пункт выдачи Минеральные воды, ул. Новосёлов, 9А</option>
+                <option value="Минеральные воды, ул. Новосёлов, 9А">Минеральные воды, ул. Новосёлов, 9А</option>
                 <option value="Пункт выдачи Пятигорск, ул. Украинская, 34">Пункт выдачи Пятигорск, ул. Украинская, 34</option>
-                <option value="г. Ессентуки, ул. Советская, 67А">г. Ессентуки, ул. Советская, 67А</option>
+                <option value="Пункт выдачи г. Ессентуки, ул. Советская, 67А">Пункт выдачи г. Ессентуки, ул. Советская, 67А</option>
               </select>
             </div>
             <div className={styles.formField}>
@@ -387,27 +333,12 @@ const checkOrderStatus = async () => {
           </div>
           <button 
             className={styles.checkoutButton} 
-            onClick={openModal}
+            onClick={handlePaymentConfirm}
             disabled={isLoading || !isEmailValid || !email || !firstName || !lastName || !deliveryAddress || !isPhoneValid || !phone}
           >
             {isLoading ? 'Загрузка...' : 'Перейти к оплате'}
           </button>
           {error && <div className={styles.errorMessage}>{error}</div>}
-          <Modal 
-        isOpen={showModal} 
-        onClose={closeModal} // Передаем функцию для закрытия модалки
-      >
-        <h2>Пожалуйста, завершите оплату</h2>
-        <p>Перед тем как продолжить, убедитесь, что:</p>
-        <ul>
-          <li>Вы вернулись на страницу корзины после оплаты.</li>
-          <li>Проверьте наличие письма с чеком на указанный email.</li>
-        </ul>
-        <div className={styles.modal_actions}>
-          <button className={styles.button_cart} onClick={handlePaymentConfirm}>Подтвердить оплату</button>
-          <button className={styles.button_cart} onClick={closeModal}>Отмена</button>
-        </div>
-      </Modal>
         </>
       )}
     </div>

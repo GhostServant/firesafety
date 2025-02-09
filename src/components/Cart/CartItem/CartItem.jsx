@@ -4,7 +4,7 @@ import styles from './CartItem.module.scss';
 
 const CartItem = ({ item }) => {
   const [cart, setCart] = useRecoilState(cartState);
-
+  
   // Функция для изменения количества через input
   const handleQuantityInputChange = (e) => {
     const newQuantity = parseInt(e.target.value, 10);
@@ -41,7 +41,7 @@ const CartItem = ({ item }) => {
       <img src={item.productImage || 'https://www.magazin01.ru/upload/iblock/f32/qbz4ezesr4dh1pumjaztiv2zq5zir94b/Bezimeni_7.png'} alt={item.name} />
       <div className={styles.itemDetails}>
         <h3>{item.name}</h3>
-        <p>{applicablePrice.toFixed(2)} руб./шт</p>
+        <p>{applicablePrice !== 0 ? `${applicablePrice.toFixed(2)} руб./шт`  : "Под заказ"} </p>
         <div className={styles.quantityControl}>
           <button onClick={() => handleQuantityButtonClick(item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
           <input
@@ -55,7 +55,7 @@ const CartItem = ({ item }) => {
         <button className={styles.removeItemButton} onClick={handleRemoveItem}>×</button>
       </div>
       <div className={styles.itemTotal}>
-        {(applicablePrice * item.quantity).toFixed(2)} руб.
+        {(applicablePrice * item.quantity) !== 0 ? `${(applicablePrice * item.quantity).toFixed(2)} руб.` : "Под заказ"}
       </div>
     </div>
   );

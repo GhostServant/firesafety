@@ -105,6 +105,7 @@ const ServicesItem = () => {
           serviceName={service.name}
           showPhone={false}
           showQuantity={false}
+          showBid={false}
           showInn={true}
           scenario={3}
         />

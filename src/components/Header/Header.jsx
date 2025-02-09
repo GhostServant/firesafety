@@ -14,7 +14,7 @@ function Header() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
-  const [isFileListModalOpen, setIsFileListModalOpen] = useState(false); // Новое состояние для модального окна со списком файлов
+  const [isFileListModalOpen, setIsFileListModalOpen] = useState(false);
 
   const cart = useRecoilValue(cartState);
   const location = useLocation();
@@ -106,6 +106,7 @@ function Header() {
             showEmail={false}
             showMessage={false}
             showFileUpload={false}
+            showBid={false}
             showQuantity={false}
             scenario={2}
           />

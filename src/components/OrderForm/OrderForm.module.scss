@@ -176,6 +176,35 @@ input:checked + label .checkboxToggle {
   }
 }
 
+.fileLine{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.fileListButton {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 15px;
+  margin-right: 10px;
+  position: relative;
+  color: #333;
+  font-size: 16px;
+  transition: color 0.3s;
+
+  .icon {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    color: #FE8B1E;
+  }
+}
+
 .successMessage,
 .errorMessage {
   display: flex;
@@ -203,6 +232,14 @@ input:checked + label .checkboxToggle {
 .errorMessage p {
   color: #333;
 }
+
+@media (max-width: 1024px) {
+  .fileListButton {
+    padding: 7px 12px;
+    font-size: 14px;
+  }
+}
+
 
 @media (max-width: 480px) {
   .title {

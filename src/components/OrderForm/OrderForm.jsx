@@ -4,6 +4,8 @@ import styles from './OrderForm.module.scss';
 import Modal from './../Modal/Modal';
 import { servicesName } from '../../data/servicesList';
 import useEmailJs from './../../hook/useEmailJs';
+import { FaFileAlt } from 'react-icons/fa'; // Иконка для файлов
+import FileListModal from './../FileListModal/FileListModal';
 
 const TOKEN_KEY = "4ef233740a2f74c14694a474fda11cbf4c0b82d9";
 
@@ -13,6 +15,7 @@ const OrderForm = ({
   showName = true,
   showPhone = true,
   showEmail = true,
+  showBid = true,
   showMessage = true,
   showFileUpload = true,
   showQuantity = true,
@@ -39,6 +42,7 @@ const OrderForm = ({
   const [errors, setErrors] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const [isFileListModalOpen, setIsFileListModalOpen] = useState(false);
 
   const { sendEmail, isSending } = useEmailJs();
 
@@ -102,6 +106,10 @@ const OrderForm = ({
         }));
       });
     }
+  };
+
+  const handleFileListButtonClick = () => {
+    setIsFileListModalOpen(true);
   };
 
   const convertFileToBase64 = (file) => {
@@ -203,6 +211,10 @@ const OrderForm = ({
         add_data: '—'
       }));
     }
+  };
+
+  const handleCloseModal = () => {
+    setIsFileListModalOpen(false);
   };
 
   return (
@@ -308,27 +320,38 @@ const OrderForm = ({
           </div>
         )}
 
-        {showFileUpload && (
-          <div className={styles.fileUpload}>
-            <label htmlFor="file" className={styles.fileLabel}>
-              <span className={styles.fileIcon}>📎</span>
-              Прикрепить файл
-            </label>
-            <input
-              type="file"
-              id="file"
-              name="file"
-              onChange={handleFileChange}
-              accept=".docx,.txt"
-              className={styles.fileInput}
-            />
-            {formData.file_name && (
-              <div className={styles.selectedFiles}>
-                <p>Выбранный файл: {formData.file_name}</p>
-              </div>
-            )}
-          </div>
-        )}
+        <div className={styles.fileLine}>
+          {
+            showBid && (
+              <button className={styles.fileListButton} onClick={handleFileListButtonClick}>
+                <FaFileAlt className="icon" />
+                <span>Формы заявок</span>
+              </button>
+            )
+          }
+
+          {showFileUpload && (
+            <div className={styles.fileUpload}>
+              <label htmlFor="file" className={styles.fileLabel}>
+                <span className={styles.fileIcon}>📎</span>
+                Прикрепить файл
+              </label>
+              <input
+                type="file"
+                id="file"
+                name="file"
+                onChange={handleFileChange}
+                accept=".docx,.txt"
+                className={styles.fileInput}
+              />
+              {formData.file_name && (
+                <div className={styles.selectedFiles}>
+                  <p>Выбранный файл: {formData.file_name}</p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
 
         <div className={styles.checkbox}>
           <input
@@ -351,7 +374,7 @@ const OrderForm = ({
           {isSending ? 'Отправка...' : 'Отправить'}
         </button>
       </form>
-
+      <FileListModal isOpen={isFileListModalOpen} onClose={handleCloseModal} />
       {isModalOpen && (
         <Modal onClose={closeModal}>
           <p>{modalMessage}</p>
